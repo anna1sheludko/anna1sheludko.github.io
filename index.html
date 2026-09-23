@@ -61,6 +61,12 @@
       padding: 32px 26px 64px;
       position: relative;
       z-index: 1;
+      transition: opacity 0.28s ease;
+    }
+
+    /* Language switching — fade effect */
+    .container.lang-fading {
+      opacity: 0;
     }
 
     /* ── Top bar ─────────────────────────── */
@@ -72,6 +78,7 @@
       padding-bottom: 18px;
       border-bottom: 1px solid var(--line);
       margin-bottom: 56px;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -109,6 +116,13 @@
       font-weight: 700;
     }
 
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
     nav {
       display: flex;
       align-items: center;
@@ -140,6 +154,56 @@
 
     nav a:hover { color: var(--terracotta); }
     nav a:hover::after { width: 100%; }
+
+    /* ── Language switcher ───────────────── */
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgba(45, 77, 61, 0.06);
+      border: 1px solid var(--line);
+      position: relative;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+      padding: 5px 10px;
+      border-radius: 999px;
+      transition: color 0.18s ease;
+      text-transform: uppercase;
+      font-weight: 500;
+      position: relative;
+      z-index: 2;
+    }
+
+    .lang-btn:hover {
+      color: var(--terracotta);
+    }
+
+    .lang-btn.active {
+      color: #f8f8f5;
+    }
+
+    /* animated pill background */
+    .lang-pill {
+      position: absolute;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 999px;
+      background: var(--green-deep);
+      box-shadow: 0 2px 6px rgba(29, 45, 38, 0.15);
+      transition: left 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                  width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
 
     /* ── Hero ────────────────────────────── */
     .hero {
@@ -309,10 +373,8 @@
       50% { box-shadow: 0 0 0 10px rgba(77, 122, 96, 0.04); }
     }
 
-    /* ── Live pipeline (hero visual) ─────── */
-    .art {
-      position: relative;
-    }
+    /* ── Live pipeline ───────────────────── */
+    .art { position: relative; }
 
     .pipeline {
       position: relative;
@@ -417,9 +479,7 @@
       border-color: #86efac;
     }
 
-    .stage-info {
-      min-width: 0;
-    }
+    .stage-info { min-width: 0; }
 
     .stage-name {
       font-size: 0.82rem;
@@ -821,7 +881,7 @@
       color: var(--green-deep);
     }
 
-    /* ── Skills strip ────────────────────── */
+    /* ── Skills ──────────────────────────── */
     .skills-strip {
       display: flex;
       flex-wrap: wrap;
@@ -874,9 +934,7 @@
       color: #f8f8f5;
     }
 
-    .chip.primary::after {
-      color: #f8f8f5;
-    }
+    .chip.primary::after { color: #f8f8f5; }
 
     .chip.primary:hover {
       background: var(--terracotta);
@@ -928,13 +986,13 @@
       line-height: 1.7;
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s ease, margin-top 0.35s ease, opacity 0.25s ease;
+      transition: max-height 0.4s ease, margin-top 0.35s ease, opacity 0.25s ease;
       opacity: 0;
       margin-top: 0;
     }
 
     .faq-item.open p {
-      max-height: 260px;
+      max-height: 400px;
       margin-top: 10px;
       opacity: 1;
     }
@@ -945,7 +1003,6 @@
       font-family: var(--mono);
       font-size: 0.85rem;
       float: right;
-      transition: transform 0.3s ease;
     }
 
     .faq-item.open h4::after {
@@ -1057,7 +1114,8 @@
 
     @media (max-width: 560px) {
       .container { padding: 20px 18px 50px; }
-      .topbar { align-items: flex-start; flex-direction: column; }
+      .topbar { align-items: flex-start; }
+      .topbar-right { width: 100%; justify-content: space-between; }
       nav { gap: 12px 16px; }
       h1 { font-size: 2.4rem; }
       .section-head { display: block; }
@@ -1067,7 +1125,7 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="page-container">
 
     <!-- ── Top bar ───────────────────── -->
     <div class="topbar">
@@ -1075,28 +1133,40 @@
         <span class="brand-mark" aria-hidden="true"></span>
         anna.sheludko
       </a>
-      <nav>
-        <a href="#services">what i do</a>
-        <a href="#process">process</a>
-        <a href="#projects">projects</a>
-        <a href="#faq">faq</a>
-        <a href="#contact">contact</a>
-      </nav>
+      <div class="topbar-right">
+        <nav>
+          <a href="#services" data-i18n="nav.whatid">what i do</a>
+          <a href="#process" data-i18n="nav.process">process</a>
+          <a href="#projects" data-i18n="nav.projects">projects</a>
+          <a href="#faq" data-i18n="nav.faq">faq</a>
+          <a href="#contact" data-i18n="nav.contact">contact</a>
+        </nav>
+        <div class="lang-switch" id="lang-switch" role="group" aria-label="Language">
+          <span class="lang-pill" id="lang-pill"></span>
+          <button class="lang-btn" data-lang="en" type="button">EN</button>
+          <button class="lang-btn" data-lang="pl" type="button">PL</button>
+          <button class="lang-btn" data-lang="ua" type="button">UA</button>
+        </div>
+      </div>
     </div>
 
     <!-- ── Hero ──────────────────────── -->
     <header class="hero" id="top">
       <div>
-        <div class="eyebrow">freelance engineer · software &amp; data</div>
-        <h1>I build things<br>with <span class="highlight">code and data.</span></h1>
+        <div class="eyebrow" data-i18n="hero.eyebrow">freelance engineer · software &amp; data</div>
+        <h1>
+          <span data-i18n="hero.h1a">I build things</span><br>
+          <span data-i18n="hero.h1b">with</span>
+          <span class="highlight" data-i18n="hero.h1c">code and data.</span>
+        </h1>
 
         <div class="intro">
-          <p>
+          <p data-i18n="hero.intro1">
             Software engineering graduate with a wide toolbox — I write code in
             Python, Java, and C++; I design and query databases; I build data
             pipelines; and I automate the boring parts of your workflow.
           </p>
-          <p>
+          <p data-i18n-html="hero.intro2">
             Whether you need a small script, a proper ETL pipeline, a database
             fix, a report, or something you haven't fully figured out yet —
             <strong>if it involves code, I can probably help</strong>. And if I can't,
@@ -1106,12 +1176,14 @@
 
         <div class="actions">
           <a class="button" href="#contact">
-            tell me about your project <span class="arrow">→</span>
+            <span data-i18n="hero.cta1">tell me about your project</span>
+            <span class="arrow">→</span>
           </a>
           <a class="button secondary" href="#services">
-            what i do <span class="arrow">→</span>
+            <span data-i18n="hero.cta2">what i do</span>
+            <span class="arrow">→</span>
           </a>
-          <span class="status">available for freelance</span>
+          <span class="status" data-i18n="hero.status">available for freelance</span>
         </div>
       </div>
 
@@ -1127,10 +1199,10 @@
             <div class="stage" data-stage="0">
               <div class="stage-num">01</div>
               <div class="stage-info">
-                <div class="stage-name">Extract</div>
-                <div class="stage-meta">read CSV files</div>
+                <div class="stage-name" data-i18n="pipe.s1name">Extract</div>
+                <div class="stage-meta" data-i18n="pipe.s1meta">read CSV files</div>
               </div>
-              <div class="stage-badge">9 files</div>
+              <div class="stage-badge" data-i18n="pipe.s1badge">9 files</div>
             </div>
             <div class="connector">
               <span class="flow-dot"></span>
@@ -1140,8 +1212,8 @@
             <div class="stage" data-stage="1">
               <div class="stage-num">02</div>
               <div class="stage-info">
-                <div class="stage-name">Transform</div>
-                <div class="stage-meta">clean + validate</div>
+                <div class="stage-name" data-i18n="pipe.s2name">Transform</div>
+                <div class="stage-meta" data-i18n="pipe.s2meta">clean + validate</div>
               </div>
               <div class="stage-badge">Pandera</div>
             </div>
@@ -1153,10 +1225,10 @@
             <div class="stage" data-stage="2">
               <div class="stage-num">03</div>
               <div class="stage-info">
-                <div class="stage-name">Load</div>
+                <div class="stage-name" data-i18n="pipe.s3name">Load</div>
                 <div class="stage-meta">COPY → PostgreSQL</div>
               </div>
-              <div class="stage-badge">8× faster</div>
+              <div class="stage-badge" data-i18n="pipe.s3badge">8× faster</div>
             </div>
             <div class="connector">
               <span class="flow-dot"></span>
@@ -1166,14 +1238,14 @@
             <div class="stage" data-stage="3">
               <div class="stage-num">✓</div>
               <div class="stage-info">
-                <div class="stage-name">Query-ready</div>
-                <div class="stage-meta">1.5M rows in PostgreSQL</div>
+                <div class="stage-name" data-i18n="pipe.s4name">Query-ready</div>
+                <div class="stage-meta" data-i18n="pipe.s4meta">1.5M rows in PostgreSQL</div>
               </div>
-              <div class="stage-badge">done</div>
+              <div class="stage-badge" data-i18n="pipe.s4badge">done</div>
             </div>
           </div>
           <div class="pipeline-footer">
-            <span class="ok">pipeline completed · 40s</span>
+            <span class="ok" data-i18n="pipe.footer">pipeline completed · 40s</span>
             <span>v1.0</span>
           </div>
         </div>
@@ -1183,50 +1255,50 @@
     <!-- ── Services ──────────────────── -->
     <section class="section" id="services">
       <div class="section-head">
-        <h2>What I can do for you</h2>
-        <span>directions i usually work in</span>
+        <h2 data-i18n="svc.h">What I can do for you</h2>
+        <span data-i18n="svc.sub">directions i usually work in</span>
       </div>
 
       <div class="services-grid">
         <article class="service">
-          <div class="service-num">01 — build</div>
-          <h3>Small tools &amp; scripts</h3>
-          <p>
+          <div class="service-num" data-i18n="svc1.num">01 — build</div>
+          <h3 data-i18n="svc1.h">Small tools &amp; scripts</h3>
+          <p data-i18n="svc1.p">
             A script that renames 500 files. A tool that emails you when a
             website changes. A tiny web app that does one job well.
           </p>
           <ul>
-            <li>Python, Java, C++</li>
-            <li>CLI tools, web scrapers, bots</li>
-            <li>Simple web apps</li>
+            <li data-i18n="svc1.li1">Python, Java, C++</li>
+            <li data-i18n="svc1.li2">CLI tools, web scrapers, bots</li>
+            <li data-i18n="svc1.li3">Simple web apps</li>
           </ul>
         </article>
 
         <article class="service">
-          <div class="service-num">02 — data</div>
-          <h3>Pipelines &amp; data work</h3>
-          <p>
+          <div class="service-num" data-i18n="svc2.num">02 — data</div>
+          <h3 data-i18n="svc2.h">Pipelines &amp; data work</h3>
+          <p data-i18n="svc2.p">
             If your data lives in scattered files and manual exports, I'll design
             a proper ETL pipeline that pulls it all together — clean and reliable.
           </p>
           <ul>
-            <li>CSV, Excel, API sources</li>
-            <li>PostgreSQL, Oracle, MySQL</li>
-            <li>Validation, cleaning, deduplication</li>
+            <li data-i18n="svc2.li1">CSV, Excel, API sources</li>
+            <li data-i18n="svc2.li2">PostgreSQL, Oracle, MySQL</li>
+            <li data-i18n="svc2.li3">Validation, cleaning, deduplication</li>
           </ul>
         </article>
 
         <article class="service">
-          <div class="service-num">03 — analyze</div>
-          <h3>SQL, reports &amp; insights</h3>
-          <p>
+          <div class="service-num" data-i18n="svc3.num">03 — analyze</div>
+          <h3 data-i18n="svc3.h">SQL, reports &amp; insights</h3>
+          <p data-i18n="svc3.p">
             Once the data is in one place, someone has to ask it the right
             questions. I'll write the SQL, build the report, and explain what it means.
           </p>
           <ul>
-            <li>Revenue, delivery, customer reports</li>
-            <li>Statistics, forecasting, ML basics</li>
-            <li>Dashboards and visual summaries</li>
+            <li data-i18n="svc3.li1">Revenue, delivery, customer reports</li>
+            <li data-i18n="svc3.li2">Statistics, forecasting, ML basics</li>
+            <li data-i18n="svc3.li3">Dashboards and visual summaries</li>
           </ul>
         </article>
       </div>
@@ -1235,30 +1307,30 @@
     <!-- ── Process ───────────────────── -->
     <section class="section" id="process">
       <div class="section-head">
-        <h2>How we work together</h2>
-        <span>four steps, no surprises</span>
+        <h2 data-i18n="proc.h">How we work together</h2>
+        <span data-i18n="proc.sub">four steps, no surprises</span>
       </div>
 
       <div class="process">
         <div class="step">
-          <div class="step-num">step 01</div>
-          <h4>Short call</h4>
-          <p>We talk for 20–30 minutes. You show me the problem, I ask dumb questions. Free.</p>
+          <div class="step-num" data-i18n="proc.s1num">step 01</div>
+          <h4 data-i18n="proc.s1h">Short call</h4>
+          <p data-i18n="proc.s1p">We talk for 20–30 minutes. You show me the problem, I ask dumb questions. Free.</p>
         </div>
         <div class="step">
-          <div class="step-num">step 02</div>
-          <h4>Fixed plan</h4>
-          <p>I send you a written scope: what I'll deliver, when, and the price. No hourly guessing.</p>
+          <div class="step-num" data-i18n="proc.s2num">step 02</div>
+          <h4 data-i18n="proc.s2h">Fixed plan</h4>
+          <p data-i18n="proc.s2p">I send you a written scope: what I'll deliver, when, and the price. No hourly guessing.</p>
         </div>
         <div class="step">
-          <div class="step-num">step 03</div>
-          <h4>Build in the open</h4>
-          <p>You see progress every few days. If something changes, we discuss it before I continue.</p>
+          <div class="step-num" data-i18n="proc.s3num">step 03</div>
+          <h4 data-i18n="proc.s3h">Build in the open</h4>
+          <p data-i18n="proc.s3p">You see progress every few days. If something changes, we discuss it before I continue.</p>
         </div>
         <div class="step">
-          <div class="step-num">step 04</div>
-          <h4>Handover</h4>
-          <p>You get the working code, docs, and a walkthrough. It's yours, not tied to me.</p>
+          <div class="step-num" data-i18n="proc.s4num">step 04</div>
+          <h4 data-i18n="proc.s4h">Handover</h4>
+          <p data-i18n="proc.s4p">You get the working code, docs, and a walkthrough. It's yours, not tied to me.</p>
         </div>
       </div>
     </section>
@@ -1266,28 +1338,28 @@
     <!-- ── Projects ──────────────────── -->
     <section class="section" id="projects">
       <div class="section-head">
-        <h2>Selected work</h2>
-        <span>systems / experiments / learning</span>
+        <h2 data-i18n="proj.h">Selected work</h2>
+        <span data-i18n="proj.sub">systems / experiments / learning</span>
       </div>
 
       <div class="project-grid">
         <article class="project primary">
-          <div class="project-tag">project 01 · case study</div>
+          <div class="project-tag" data-i18n="proj1.tag">project 01 · case study</div>
           <h3>
             <a href="https://github.com/anna1sheludko/end-to-end-pipeline">
               End-to-End ETL Pipeline
             </a>
           </h3>
-          <p>
+          <p data-i18n-html="proj1.p">
             A CSV → PostgreSQL pipeline for e-commerce data. Extracts with retries,
             validates with Pandera, and loads with PostgreSQL <code>COPY</code>
             instead of row-by-row inserts.
           </p>
 
           <div class="project-result">
-            <div class="result-item"><strong>1.5M</strong>rows loaded</div>
-            <div class="result-item"><strong>8×</strong>faster loading</div>
-            <div class="result-item"><strong>40s</strong>end-to-end</div>
+            <div class="result-item"><strong>1.5M</strong><span data-i18n="proj1.r1">rows loaded</span></div>
+            <div class="result-item"><strong>8×</strong><span data-i18n="proj1.r2">faster loading</span></div>
+            <div class="result-item"><strong>40s</strong><span data-i18n="proj1.r3">end-to-end</span></div>
           </div>
 
           <div class="project-meta">
@@ -1298,24 +1370,24 @@
         </article>
 
         <article class="project secondary">
-          <div class="project-tag">project 02 · in progress</div>
-          <h3>API → Postgres</h3>
-          <p>
+          <div class="project-tag" data-i18n="proj2.tag">project 02 · in progress</div>
+          <h3 data-i18n="proj2.h">API → Postgres</h3>
+          <p data-i18n="proj2.p">
             A new pipeline pulling data from a public REST API into PostgreSQL.
             Something has to keep the first one from getting lonely.
           </p>
           <div class="project-meta">
-            <span>coming soon</span>
+            <span data-i18n="proj2.meta">coming soon</span>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- ── Skills strip ──────────────── -->
+    <!-- ── Skills ────────────────────── -->
     <section class="section">
       <div class="section-head">
-        <h2>Things I use</h2>
-        <span>my daily toolbox</span>
+        <h2 data-i18n="skills.h">Things I use</h2>
+        <span data-i18n="skills.sub">my daily toolbox</span>
       </div>
 
       <div class="skills-strip">
@@ -1357,30 +1429,30 @@
     <!-- ── FAQ ───────────────────────── -->
     <section class="section" id="faq">
       <div class="section-head">
-        <h2>Questions clients ask</h2>
-        <span>click to expand</span>
+        <h2 data-i18n="faq.h">Questions clients ask</h2>
+        <span data-i18n="faq.sub">click to expand</span>
       </div>
 
       <div class="faq-grid">
         <div class="faq-col">
           <div class="faq-item">
-            <h4>What kind of work do you take?</h4>
-            <p>
+            <h4 data-i18n="faq.q1">What kind of work do you take?</h4>
+            <p data-i18n="faq.a1">
               Anything that involves writing code or handling data. Small automation
               scripts, data cleaning, database fixes, pipeline builds, reports,
               simple web tools. If it's outside my range, I'll say so on the first call.
             </p>
           </div>
           <div class="faq-item">
-            <h4>How long does it take?</h4>
-            <p>
+            <h4 data-i18n="faq.q2">How long does it take?</h4>
+            <p data-i18n="faq.a2">
               Small scripts: a few days. Full ETL pipelines: 1–3 weeks. Database
               fixes and reports: usually a week. Realistic timelines, in writing.
             </p>
           </div>
           <div class="faq-item">
-            <h4>Do you work remotely?</h4>
-            <p>
+            <h4 data-i18n="faq.q3">Do you work remotely?</h4>
+            <p data-i18n="faq.a3">
               Yes. I work with clients across time zones. Communication via email,
               Slack, or whatever tool you already use.
             </p>
@@ -1389,22 +1461,22 @@
 
         <div class="faq-col">
           <div class="faq-item">
-            <h4>How do you charge?</h4>
-            <p>
+            <h4 data-i18n="faq.q4">How do you charge?</h4>
+            <p data-i18n="faq.a4">
               Fixed price per project, agreed upfront. Smaller jobs can be hourly
               if you prefer. I always give you the number before I start.
             </p>
           </div>
           <div class="faq-item">
-            <h4>Who owns the code?</h4>
-            <p>
+            <h4 data-i18n="faq.q5">Who owns the code?</h4>
+            <p data-i18n="faq.a5">
               You do. Everything I deliver is yours — code, docs, and configuration.
               No lock-in, no hidden dependencies.
             </p>
           </div>
           <div class="faq-item">
-            <h4>What if I don't know exactly what I need?</h4>
-            <p>
+            <h4 data-i18n="faq.q6">What if I don't know exactly what I need?</h4>
+            <p data-i18n="faq.a6">
               That's normal — and that's what the first call is for. I'll help you
               figure out the scope before we commit to anything.
             </p>
@@ -1417,8 +1489,8 @@
     <section class="section" id="contact">
       <div class="contact-box">
         <div>
-          <h3>Let's talk data.</h3>
-          <p>
+          <h3 data-i18n="contact.h">Let's talk data.</h3>
+          <p data-i18n="contact.p">
             Send me a message about your project — what you're trying to do,
             what's getting in the way, and any deadlines. I'll reply within
             24 hours with an honest answer about whether I can help.
@@ -1432,8 +1504,8 @@
               <span>annasheludko152@gmail.com</span>
             </a>
           </div>
-          <div class="contact-note">
-            based in poland · working with clients worldwide<br>
+          <div class="contact-note" data-i18n-html="contact.note">
+            from ukraine · based in poland<br>
             replies within 24 hours
           </div>
         </div>
@@ -1441,13 +1513,439 @@
     </section>
 
     <footer>
-      <span>© anna sheludko</span>
-      <span>built with curiosity</span>
+      <span data-i18n="footer.rights">© anna sheludko</span>
+      <span data-i18n="footer.built">built with curiosity</span>
     </footer>
 
   </div>
 
   <script>
+    /* ─────────────────────────────────────────
+       TRANSLATIONS
+       ───────────────────────────────────────── */
+    const translations = {
+      en: {
+        "nav.whatid": "what i do",
+        "nav.process": "process",
+        "nav.projects": "projects",
+        "nav.faq": "faq",
+        "nav.contact": "contact",
+
+        "hero.eyebrow": "freelance engineer · software & data",
+        "hero.h1a": "I build things",
+        "hero.h1b": "with",
+        "hero.h1c": "code and data.",
+        "hero.intro1": "Software engineering graduate with a wide toolbox — I write code in Python, Java, and C++; I design and query databases; I build data pipelines; and I automate the boring parts of your workflow.",
+        "hero.intro2": "Whether you need a small script, a proper ETL pipeline, a database fix, a report, or something you haven't fully figured out yet — <strong>if it involves code, I can probably help</strong>. And if I can't, I'll tell you straight away.",
+        "hero.cta1": "tell me about your project",
+        "hero.cta2": "what i do",
+        "hero.status": "available for freelance",
+
+        "pipe.s1name": "Extract",
+        "pipe.s1meta": "read CSV files",
+        "pipe.s1badge": "9 files",
+        "pipe.s2name": "Transform",
+        "pipe.s2meta": "clean + validate",
+        "pipe.s3name": "Load",
+        "pipe.s3badge": "8× faster",
+        "pipe.s4name": "Query-ready",
+        "pipe.s4meta": "1.5M rows in PostgreSQL",
+        "pipe.s4badge": "done",
+        "pipe.footer": "pipeline completed · 40s",
+
+        "svc.h": "What I can do for you",
+        "svc.sub": "directions i usually work in",
+        "svc1.num": "01 — build",
+        "svc1.h": "Small tools & scripts",
+        "svc1.p": "A script that renames 500 files. A tool that emails you when a website changes. A tiny web app that does one job well.",
+        "svc1.li1": "Python, Java, C++",
+        "svc1.li2": "CLI tools, web scrapers, bots",
+        "svc1.li3": "Simple web apps",
+        "svc2.num": "02 — data",
+        "svc2.h": "Pipelines & data work",
+        "svc2.p": "If your data lives in scattered files and manual exports, I'll design a proper ETL pipeline that pulls it all together — clean and reliable.",
+        "svc2.li1": "CSV, Excel, API sources",
+        "svc2.li2": "PostgreSQL, Oracle, MySQL",
+        "svc2.li3": "Validation, cleaning, deduplication",
+        "svc3.num": "03 — analyze",
+        "svc3.h": "SQL, reports & insights",
+        "svc3.p": "Once the data is in one place, someone has to ask it the right questions. I'll write the SQL, build the report, and explain what it means.",
+        "svc3.li1": "Revenue, delivery, customer reports",
+        "svc3.li2": "Statistics, forecasting, ML basics",
+        "svc3.li3": "Dashboards and visual summaries",
+
+        "proc.h": "How we work together",
+        "proc.sub": "four steps, no surprises",
+        "proc.s1num": "step 01",
+        "proc.s1h": "Short call",
+        "proc.s1p": "We talk for 20–30 minutes. You show me the problem, I ask dumb questions. Free.",
+        "proc.s2num": "step 02",
+        "proc.s2h": "Fixed plan",
+        "proc.s2p": "I send you a written scope: what I'll deliver, when, and the price. No hourly guessing.",
+        "proc.s3num": "step 03",
+        "proc.s3h": "Build in the open",
+        "proc.s3p": "You see progress every few days. If something changes, we discuss it before I continue.",
+        "proc.s4num": "step 04",
+        "proc.s4h": "Handover",
+        "proc.s4p": "You get the working code, docs, and a walkthrough. It's yours, not tied to me.",
+
+        "proj.h": "Selected work",
+        "proj.sub": "systems / experiments / learning",
+        "proj1.tag": "project 01 · case study",
+        "proj1.p": "A CSV → PostgreSQL pipeline for e-commerce data. Extracts with retries, validates with Pandera, and loads with PostgreSQL <code>COPY</code> instead of row-by-row inserts.",
+        "proj1.r1": "rows loaded",
+        "proj1.r2": "faster loading",
+        "proj1.r3": "end-to-end",
+        "proj2.tag": "project 02 · in progress",
+        "proj2.h": "API → Postgres",
+        "proj2.p": "A new pipeline pulling data from a public REST API into PostgreSQL. Something has to keep the first one from getting lonely.",
+        "proj2.meta": "coming soon",
+
+        "skills.h": "Things I use",
+        "skills.sub": "my daily toolbox",
+
+        "faq.h": "Questions clients ask",
+        "faq.sub": "click to expand",
+        "faq.q1": "What kind of work do you take?",
+        "faq.a1": "Anything that involves writing code or handling data. Small automation scripts, data cleaning, database fixes, pipeline builds, reports, simple web tools. If it's outside my range, I'll say so on the first call.",
+        "faq.q2": "How long does it take?",
+        "faq.a2": "Small scripts: a few days. Full ETL pipelines: 1–3 weeks. Database fixes and reports: usually a week. Realistic timelines, in writing.",
+        "faq.q3": "Do you work remotely?",
+        "faq.a3": "Yes. I work with clients across time zones. Communication via email, Slack, or whatever tool you already use.",
+        "faq.q4": "How do you charge?",
+        "faq.a4": "Fixed price per project, agreed upfront. Smaller jobs can be hourly if you prefer. I always give you the number before I start.",
+        "faq.q5": "Who owns the code?",
+        "faq.a5": "You do. Everything I deliver is yours — code, docs, and configuration. No lock-in, no hidden dependencies.",
+        "faq.q6": "What if I don't know exactly what I need?",
+        "faq.a6": "That's normal — and that's what the first call is for. I'll help you figure out the scope before we commit to anything.",
+
+        "contact.h": "Let's talk data.",
+        "contact.p": "Send me a message about your project — what you're trying to do, what's getting in the way, and any deadlines. I'll reply within 24 hours with an honest answer about whether I can help.",
+        "contact.note": "from ukraine · based in poland<br>replies within 24 hours",
+
+        "footer.rights": "© anna sheludko",
+        "footer.built": "built with curiosity"
+      },
+
+      pl: {
+        "nav.whatid": "co robię",
+        "nav.process": "proces",
+        "nav.projects": "projekty",
+        "nav.faq": "faq",
+        "nav.contact": "kontakt",
+
+        "hero.eyebrow": "freelance engineer · software i dane",
+        "hero.h1a": "Buduję rzeczy",
+        "hero.h1b": "z",
+        "hero.h1c": "kodu i danych.",
+        "hero.intro1": "Kończę studia z inżynierii danych i pracuję z kodem oraz danymi — piszę w Pythonie, Javie i C++; projektuję i odpytyuję bazy danych, buduję pipeline’y danych i automatyzuję żmudne elementy pracy.",
+        "hero.intro2": "Niezależnie od tego, czy potrzebujesz małego skryptu, porządnego pipeline’u ETL, poprawki w bazie danych, raportu czy czegoś, czego jeszcze nie potrafisz dokładnie nazwać — <strong>jeśli chodzi o kod, prawdopodobnie mogę pomóc</strong>. A jeśli nie, powiem Ci to od razu.",
+        "hero.cta1": "opowiedz mi o projekcie",
+        "hero.cta2": "co robię",
+        "hero.status": "dostępna na zlecenia",
+
+        "pipe.s1name": "Ekstrakcja",
+        "pipe.s1meta": "odczyt plików CSV",
+        "pipe.s1badge": "9 plików",
+        "pipe.s2name": "Transformacja",
+        "pipe.s2meta": "czyszczenie + walidacja",
+        "pipe.s3name": "Ładowanie",
+        "pipe.s3badge": "8× szybciej",
+        "pipe.s4name": "Gotowe do zapytań",
+        "pipe.s4meta": "1,5 mln wierszy w PostgreSQL",
+        "pipe.s4badge": "gotowe",
+        "pipe.footer": "pipeline zakończony · 40 s",
+
+        "svc.h": "Co mogę dla Ciebie zrobić",
+        "svc.sub": "obszary, w których najczęściej pracuję",
+        "svc1.num": "01 — budowa",
+        "svc1.h": "Małe narzędzia i skrypty",
+        "svc1.p": "Skrypt, który zmienia nazwy 500 plików. Narzędzie, które wysyła Ci maila, gdy zmieni się strona. Mała aplikacja webowa, która robi jedną rzecz — i robi ją dobrze.",
+        "svc1.li1": "Python, Java, C++",
+        "svc1.li2": "Narzędzia CLI, scrapery, boty",
+        "svc1.li3": "Proste aplikacje webowe",
+        "svc2.num": "02 — dane",
+        "svc2.h": "Pipeline’y i praca z danymi",
+        "svc2.p": "Jeśli Twoje dane są rozrzucone po plikach i ręcznych eksportach, zaprojektuję porządny pipeline ETL, który zbierze to w całość — czysto i niezawodnie.",
+        "svc2.li1": "Źródła CSV, Excel, API",
+        "svc2.li2": "PostgreSQL, Oracle, MySQL",
+        "svc2.li3": "Walidacja, czyszczenie, deduplikacja",
+        "svc3.num": "03 — analiza",
+        "svc3.h": "SQL, raporty i wnioski",
+        "svc3.p": "Kiedy dane są już w jednym miejscu, trzeba zadać im właściwe pytania. Napiszę SQL, przygotuję raport i wyjaśnię, co z niego wynika.",
+        "svc3.li1": "Raporty dotyczące przychodów, dostaw i klientów",
+        "svc3.li2": "Statystyka, prognozowanie, podstawy ML",
+        "svc3.li3": "Dashboardy i wizualne podsumowania",
+
+        "proc.h": "Jak pracujemy razem",
+        "proc.sub": "cztery kroki, bez niespodzianek",
+        "proc.s1num": "krok 01",
+        "proc.s1h": "Krótka rozmowa",
+        "proc.s1p": "Rozmawiamy 20–30 minut. Pokazujesz mi problem, a ja zadaję głupie pytania. Bezpłatnie.",
+        "proc.s2num": "krok 02",
+        "proc.s2h": "Konkretny plan",
+        "proc.s2p": "Wysyłam Ci pisemny zakres: co dostarczę, kiedy i za ile. Bez zgadywania liczby godzin.",
+        "proc.s3num": "krok 03",
+        "proc.s3h": "Buduję na bieżąco",
+        "proc.s3p": "Co kilka dni widzisz postępy. Jeśli coś się zmienia, omawiamy to, zanim pójdę dalej.",
+        "proc.s4num": "krok 04",
+        "proc.s4h": "Przekazanie",
+        "proc.s4p": "Dostajesz działający kod, dokumentację i krótkie omówienie. To Twoje rozwiązanie — nie musisz być ode mnie zależny/a.",
+
+        "proj.h": "Wybrane projekty",
+        "proj.sub": "systemy / eksperymenty / nauka",
+        "proj1.tag": "projekt 01 · case study",
+        "proj1.p": "Pipeline CSV → PostgreSQL dla danych e-commerce. Ekstrakcja z ponawianiem prób, walidacja za pomocą Pandera i ładowanie przez PostgreSQL <code>COPY</code> zamiast wstawiania danych wiersz po wierszu.",
+        "proj1.r1": "załadowanych wierszy",
+        "proj1.r2": "szybsze ładowanie",
+        "proj1.r3": "od początku do końca",
+        "proj2.tag": "projekt 02 · w toku",
+        "proj2.h": "API → Postgres",
+        "proj2.p": "Nowy pipeline pobierający dane z publicznego REST API do PostgreSQL. Ktoś musi przecież dotrzymać towarzystwa pierwszemu.",
+        "proj2.meta": "wkrótce",
+
+        "skills.h": "Czego używam",
+        "skills.sub": "mój codzienny warsztat",
+
+        "faq.h": "Pytania klientów",
+        "faq.sub": "kliknij, aby rozwinąć",
+        "faq.q1": "Jakie zlecenia przyjmujesz?",
+        "faq.a1": "Wszystko, co wiąże się z pisaniem kodu lub pracą z danymi: małe skrypty automatyzujące, czyszczenie danych, poprawki w bazach danych, budowa pipeline’ów, raporty i proste narzędzia webowe. Jeśli coś wykracza poza mój zakres, powiem o tym podczas pierwszej rozmowy.",
+        "faq.q2": "Ile to trwa?",
+        "faq.a2": "Małe skrypty: kilka dni. Pełne pipeline’y ETL: 1–3 tygodnie. Poprawki w bazach danych i raporty: zwykle tydzień. Terminy ustalam realistycznie i zawsze potwierdzam je na piśmie.",
+        "faq.q3": "Czy pracujesz zdalnie?",
+        "faq.a3": "Tak. Pracuję z klientami w różnych strefach czasowych. Możemy komunikować się przez e-mail, Slacka albo narzędzie, którego już używasz.",
+        "faq.q4": "Jak rozliczasz pracę?",
+        "faq.a4": "Najczęściej ustalamy stałą cenę za projekt z góry. Mniejsze zlecenia mogą być rozliczane godzinowo, jeśli wolisz. Zawsze poznasz cenę przed rozpoczęciem pracy.",
+        "faq.q5": "Do kogo należy kod?",
+        "faq.a5": "Do Ciebie. Wszystko, co dostarczam, jest Twoje — kod, dokumentacja i konfiguracja. Bez lock-inu i ukrytych zależności.",
+        "faq.q6": "Co jeśli nie wiem dokładnie, czego potrzebuję?",
+        "faq.a6": "To normalne — właśnie po to jest pierwsza rozmowa. Pomogę Ci ustalić zakres, zanim do czegokolwiek się zobowiążemy.",
+
+        "contact.h": "Porozmawiajmy o danych.",
+        "contact.p": "Napisz mi o swoim projekcie — co chcesz zrobić, co stoi na przeszkodzie i jakie masz terminy. Odpowiem w ciągu 24 godzin i szczerze powiem, czy mogę pomóc.",
+        "contact.note": "z Ukrainy · mieszkam w Polsce<br>odpowiadam w ciągu 24 godzin",
+
+        "footer.rights": "© anna sheludko",
+        "footer.built": "zbudowane z ciekawości"
+      },
+
+      ua: {
+        "nav.whatid": "що я роблю",
+        "nav.process": "процес",
+        "nav.projects": "проєкти",
+        "nav.faq": "питання",
+        "nav.contact": "контакти",
+
+        "hero.eyebrow": "фріланс-інженерка · софт і дані",
+        "hero.h1a": "Я створюю речі",
+        "hero.h1b": "з",
+        "hero.h1c": "коду та даних.",
+        "hero.intro1": "Я закінчила інженерію програмного забезпечення й маю широкий технічний інструментарій — пишу на Python, Java та C++; проєктую й запитую бази даних, будую пайплайни даних та автоматизую рутинні частини роботи.",
+        "hero.intro2": "Чи потрібен вам невеликий скрипт, повноцінний ETL-пайплайн, виправлення бази даних, звіт або щось, що ви ще не до кінця можете сформулювати — <strong>якщо це пов’язано з кодом, найімовірніше, я зможу допомогти</strong>. А якщо ні — одразу скажу.",
+        "hero.cta1": "розкажіть про свій проєкт",
+        "hero.cta2": "що я роблю",
+        "hero.status": "доступна для фриланс-роботи",
+
+        "pipe.s1name": "Витягування",
+        "pipe.s1meta": "читання CSV-файлів",
+        "pipe.s1badge": "9 файлів",
+        "pipe.s2name": "Трансформація",
+        "pipe.s2meta": "очищення + валідація",
+        "pipe.s3name": "Завантаження",
+        "pipe.s3badge": "у 8× швидше",
+        "pipe.s4name": "Готово до запитів",
+        "pipe.s4meta": "1,5 млн рядків у PostgreSQL",
+        "pipe.s4badge": "готово",
+        "pipe.footer": "пайплайн завершено · 40 с",
+
+        "svc.h": "Що я можу для вас зробити",
+        "svc.sub": "напрями, з якими я найчастіше працюю",
+        "svc1.num": "01 — розробка",
+        "svc1.h": "Невеликі інструменти та скрипти",
+        "svc1.p": "Скрипт, який перейменовує 500 файлів. Інструмент, який надсилає вам листа, коли змінюється сайт. Невеликий вебзастосунок, який добре виконує одну конкретну задачу.",
+        "svc1.li1": "Python, Java, C++",
+        "svc1.li2": "CLI-інструменти, скрапери, боти",
+        "svc1.li3": "Прості вебзастосунки",
+        "svc2.num": "02 — дані",
+        "svc2.h": "Пайплайни та робота з даними",
+        "svc2.p": "Якщо ваші дані розкидані по файлах і ручних вивантаженнях, я спроєктую надійний ETL-пайплайн, який збере все докупи — чисто й без зайвого ручного клопоту.",
+        "svc2.li1": "Джерела CSV, Excel, API",
+        "svc2.li2": "PostgreSQL, Oracle, MySQL",
+        "svc2.li3": "Валідація, очищення, дедуплікація",
+        "svc3.num": "03 — аналіз",
+        "svc3.h": "SQL, звіти та висновки",
+        "svc3.p": "Коли всі дані в одному місці, потрібно поставити їм правильні запитання. Я напишу SQL, підготую звіт і поясню, що з нього випливає.",
+        "svc3.li1": "Звіти про доходи, доставку та клієнтів",
+        "svc3.li2": "Статистика, прогнозування, основи ML",
+        "svc3.li3": "Дашборди та візуальні підсумки",
+
+        "proc.h": "Як ми працюємо разом",
+        "proc.sub": "чотири кроки, без сюрпризів",
+        "proc.s1num": "крок 01",
+        "proc.s1h": "Коротка розмова",
+        "proc.s1p": "Говоримо 20–30 хвилин. Ви показуєте проблему, а я ставлю дурні питання. Безкоштовно.",
+        "proc.s2num": "крок 02",
+        "proc.s2h": "Чіткий план",
+        "proc.s2p": "Надсилаю письмовий опис: що саме зроблю, коли й за скільки. Без вгадування кількості годин.",
+        "proc.s3num": "крок 03",
+        "proc.s3h": "Розробка прозоро",
+        "proc.s3p": "Ви бачите прогрес кожні кілька днів. Якщо щось змінюється, ми обговорюємо це до того, як я продовжу.",
+        "proc.s4num": "крок 04",
+        "proc.s4h": "Передача",
+        "proc.s4p": "Ви отримуєте робочий код, документацію та короткий walkthrough. Це ваше рішення — без прив’язки до мене.",
+
+        "proj.h": "Вибрані проєкти",
+        "proj.sub": "системи / експерименти / навчання",
+        "proj1.tag": "проєкт 01 · кейс",
+        "proj1.p": "Пайплайн CSV → PostgreSQL для даних електронної комерції. Витягування з повторними спробами, валідація за допомогою Pandera та завантаження через PostgreSQL <code>COPY</code> замість вставки рядок за рядком.",
+        "proj1.r1": "завантажено рядків",
+        "proj1.r2": "швидше завантаження",
+        "proj1.r3": "від початку до кінця",
+        "proj2.tag": "проєкт 02 · у розробці",
+        "proj2.h": "API → Postgres",
+        "proj2.p": "Новий пайплайн, який отримує дані з публічного REST API та завантажує їх у PostgreSQL. Першому теж потрібна компанія.",
+        "proj2.meta": "незабаром",
+
+        "skills.h": "Що я використовую",
+        "skills.sub": "мій щоденний інструментарій",
+
+        "faq.h": "Питання клієнтів",
+        "faq.sub": "натисніть, щоб розгорнути",
+        "faq.q1": "Які замовлення ви берете?",
+        "faq.a1": "Усе, що пов’язане з написанням коду або роботою з даними: невеликі скрипти автоматизації, очищення даних, виправлення баз даних, побудова пайплайнів, звіти та прості вебінструменти. Якщо щось виходить за межі моєї компетенції, я скажу про це під час першої розмови.",
+        "faq.q2": "Скільки це займає?",
+        "faq.a2": "Невеликі скрипти: кілька днів. Повноцінні ETL-пайплайни: 1–3 тижні. Виправлення баз даних і звіти: зазвичай тиждень. Терміни реалістичні й завжди фіксуються письмово.",
+        "faq.q3": "Ви працюєте віддалено?",
+        "faq.a3": "Так. Працюю з клієнтами в різних часових поясах. Можемо спілкуватися через email, Slack або інструмент, яким ви вже користуєтеся.",
+        "faq.q4": "Як ви розраховуєте вартість роботи?",
+        "faq.a4": "Зазвичай це фіксована ціна за проєкт, узгоджена заздалегідь. Менші замовлення можна оплачувати погодинно, якщо вам так зручніше. Я завжди називаю ціну до початку роботи.",
+        "faq.q5": "Кому належить код?",
+        "faq.a5": "Вам. Усе, що я передаю, — ваше: код, документація та конфігурація. Без прив’язки до мене та прихованих залежностей.",
+        "faq.q6": "Що, якщо я точно не знаю, що мені потрібно?",
+        "faq.a6": "Це нормально — саме для цього й потрібна перша розмова. Я допоможу визначити обсяг роботи, перш ніж ми на щось погодимося.",
+
+        "contact.h": "Поговорімо про дані.",
+        "contact.p": "Напишіть мені про свій проєкт — що ви хочете зробити, що заважає рухатися далі та які у вас терміни. Я відповім протягом 24 годин і чесно скажу, чи можу допомогти.",
+        "contact.note": "з України · живу в Польщі<br>відповідаю протягом 24 годин",
+
+        "footer.rights": "© anna sheludko",
+        "footer.built": "створено з цікавості"
+      }
+    };
+
+    const metaTitles = {
+      en: "Anna Sheludko — Engineer & Builder",
+      pl: "Anna Sheludko — Inżynierka i twórczyni",
+      ua: "Anna Sheludko — Інженерка та розробниця"
+    };
+
+    /* ─────────────────────────────────────────
+       LANGUAGE SWITCHER (with smooth fade + sliding pill)
+       ───────────────────────────────────────── */
+    const container = document.getElementById('page-container');
+    const langPill = document.getElementById('lang-pill');
+    let currentLang = 'en';
+    let isSwitching = false;
+
+    function movePill(lang) {
+      const btn = document.querySelector(`.lang-btn[data-lang="${lang}"]`);
+      if (!btn || !langPill) return;
+      const switchRect = btn.parentElement.getBoundingClientRect();
+      const btnRect = btn.getBoundingClientRect();
+      langPill.style.left = (btnRect.left - switchRect.left) + 'px';
+      langPill.style.width = btnRect.width + 'px';
+    }
+
+    function applyTranslations(lang) {
+      const dict = translations[lang];
+      if (!dict) return;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) {
+          el.textContent = dict[key];
+        }
+      });
+
+      document.querySelectorAll("[data-i18n-html]").forEach(el => {
+        const key = el.getAttribute("data-i18n-html");
+        if (dict[key] !== undefined) {
+          el.innerHTML = dict[key];
+        }
+      });
+
+      document.documentElement.lang = lang;
+      if (metaTitles[lang]) document.title = metaTitles[lang];
+
+      document.querySelectorAll(".lang-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.lang === lang);
+      });
+    }
+
+    function setLang(lang, { instant = false } = {}) {
+      if (isSwitching) return;
+      if (!translations[lang]) return;
+      if (lang === currentLang && !instant) return;
+
+      isSwitching = true;
+
+      // Move the sliding pill immediately (it feels snappy)
+      document.querySelectorAll(".lang-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.lang === lang);
+      });
+      movePill(lang);
+
+      const finish = () => {
+        applyTranslations(lang);
+        currentLang = lang;
+        try { localStorage.setItem("portfolio-lang", lang); } catch (e) {}
+
+        // Fade back in
+        requestAnimationFrame(() => {
+          container.classList.remove("lang-fading");
+          setTimeout(() => { isSwitching = false; }, 300);
+        });
+      };
+
+      if (instant) {
+        finish();
+      } else {
+        // Fade out
+        container.classList.add("lang-fading");
+        setTimeout(finish, 240);
+      }
+    }
+
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+      btn.addEventListener("click", () => setLang(btn.dataset.lang));
+    });
+
+    /* ─────────────────────────────────────────
+       INITIAL LANGUAGE
+       ───────────────────────────────────────── */
+    (function () {
+      let initialLang = "en";
+      try {
+        const saved = localStorage.getItem("portfolio-lang");
+        if (saved && translations[saved]) {
+          initialLang = saved;
+        } else {
+          const nav = (navigator.language || "en").toLowerCase();
+          if (nav.startsWith("pl")) initialLang = "pl";
+          else if (nav.startsWith("uk") || nav.startsWith("ua")) initialLang = "ua";
+        }
+      } catch (e) {}
+      applyTranslations(initialLang);
+      currentLang = initialLang;
+      // Set pill position after fonts load
+      setTimeout(() => movePill(initialLang), 100);
+      window.addEventListener('resize', () => movePill(currentLang));
+    })();
+
+    /* ─────────────────────────────────────────
+       INTERACTIONS
+       ───────────────────────────────────────── */
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', e => {
         const target = document.querySelector(link.getAttribute('href'));
