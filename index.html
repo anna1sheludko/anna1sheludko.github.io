@@ -64,10 +64,7 @@
       transition: opacity 0.28s ease;
     }
 
-    /* Language switching — fade effect */
-    .container.lang-fading {
-      opacity: 0;
-    }
+    .container.lang-fading { opacity: 0; }
 
     /* ── Top bar ─────────────────────────── */
     .topbar {
@@ -184,15 +181,9 @@
       z-index: 2;
     }
 
-    .lang-btn:hover {
-      color: var(--terracotta);
-    }
+    .lang-btn:hover { color: var(--terracotta); }
+    .lang-btn.active { color: #f8f8f5; }
 
-    .lang-btn.active {
-      color: #f8f8f5;
-    }
-
-    /* animated pill background */
     .lang-pill {
       position: absolute;
       top: 3px;
@@ -320,9 +311,7 @@
       transition: transform 0.25s ease;
     }
 
-    .button:hover .arrow {
-      transform: translateX(4px);
-    }
+    .button:hover .arrow { transform: translateX(4px); }
 
     .button.secondary {
       background: transparent;
@@ -341,9 +330,7 @@
       box-shadow: 0 8px 16px rgba(29, 45, 38, 0.08);
     }
 
-    .button.secondary .arrow {
-      transform: none;
-    }
+    .button.secondary .arrow { transform: none; }
 
     .status {
       display: inline-flex;
@@ -571,16 +558,10 @@
       gap: 6px;
     }
 
-    .pipeline-footer .ok::before {
-      content: "●";
-      font-size: 0.6rem;
-    }
+    .pipeline-footer .ok::before { content: "●"; font-size: 0.6rem; }
 
     /* ── Sections ────────────────────────── */
-    .section {
-      margin-top: 72px;
-      padding-top: 12px;
-    }
+    .section { margin-top: 72px; padding-top: 12px; }
 
     .section-head {
       display: flex;
@@ -648,17 +629,9 @@
       color: var(--ink);
     }
 
-    .service p {
-      color: var(--ink-soft);
-      font-size: 0.94rem;
-      line-height: 1.7;
-    }
+    .service p { color: var(--ink-soft); font-size: 0.94rem; line-height: 1.7; }
 
-    .service ul {
-      margin-top: 14px;
-      padding: 0;
-      list-style: none;
-    }
+    .service ul { margin-top: 14px; padding: 0; list-style: none; }
 
     .service li {
       position: relative;
@@ -694,10 +667,7 @@
       transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
-    .step:hover {
-      transform: translateY(-2px);
-      border-color: rgba(45, 77, 61, 0.22);
-    }
+    .step:hover { transform: translateY(-2px); border-color: rgba(45, 77, 61, 0.22); }
 
     .step-num {
       font-family: var(--mono);
@@ -716,11 +686,7 @@
       line-height: 1.15;
     }
 
-    .step p {
-      font-size: 0.87rem;
-      color: var(--ink-soft);
-      line-height: 1.65;
-    }
+    .step p { font-size: 0.87rem; color: var(--ink-soft); line-height: 1.65; }
 
     /* ── Projects ────────────────────────── */
     .project-grid {
@@ -741,10 +707,7 @@
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .project:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(25, 39, 32, 0.1);
-    }
+    .project:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(25, 39, 32, 0.1); }
 
     .project.primary {
       background: linear-gradient(180deg, var(--green-deep), #2a4339);
@@ -763,9 +726,7 @@
       transition: transform 0.3s ease;
     }
 
-    .project.primary:hover::before {
-      transform: translate(4px, -4px);
-    }
+    .project.primary:hover::before { transform: translate(4px, -4px); }
 
     .project-tag {
       font-family: var(--mono);
@@ -788,12 +749,7 @@
     .project h3 a { color: inherit; text-decoration: none; }
     .project h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 
-    .project p {
-      color: var(--ink-soft);
-      max-width: 46ch;
-      line-height: 1.75;
-      font-size: 0.96rem;
-    }
+    .project p { color: var(--ink-soft); max-width: 46ch; line-height: 1.75; font-size: 0.96rem; }
 
     .project.primary p { color: rgba(248,248,245,0.82); }
 
@@ -808,12 +764,7 @@
 
     .project.primary code { color: #eef7ec; }
 
-    .project-result {
-      display: flex;
-      gap: 18px;
-      margin-top: 22px;
-      flex-wrap: wrap;
-    }
+    .project-result { display: flex; gap: 18px; margin-top: 22px; flex-wrap: wrap; }
 
     .result-item {
       font-family: var(--mono);
@@ -858,9 +809,7 @@
       color: inherit;
     }
 
-    .project.secondary {
-      background: linear-gradient(180deg, var(--panel), rgba(255,255,255,0.14));
-    }
+    .project.secondary { background: linear-gradient(180deg, var(--panel), rgba(255,255,255,0.14)); }
 
     .project.secondary::before {
       content: "✦";
@@ -872,9 +821,7 @@
       transition: transform 0.4s ease;
     }
 
-    .project.secondary:hover::before {
-      transform: rotate(180deg);
-    }
+    .project.secondary:hover::before { transform: rotate(180deg); }
 
     .project.secondary .project-meta span {
       background: rgba(104, 139, 115, 0.1);
@@ -882,12 +829,7 @@
     }
 
     /* ── Skills ──────────────────────────── */
-    .skills-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 8px;
-    }
+    .skills-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
 
     .chip {
       display: inline-flex;
@@ -916,10 +858,7 @@
       transition: opacity 0.2s ease, margin-left 0.2s ease;
     }
 
-    .chip:hover::after {
-      opacity: 1;
-      margin-left: 2px;
-    }
+    .chip:hover::after { opacity: 1; margin-left: 2px; }
 
     .chip:hover {
       background: var(--sage-soft);
@@ -936,10 +875,7 @@
 
     .chip.primary::after { color: #f8f8f5; }
 
-    .chip.primary:hover {
-      background: var(--terracotta);
-      border-color: var(--terracotta);
-    }
+    .chip.primary:hover { background: var(--terracotta); border-color: var(--terracotta); }
 
     /* ── FAQ ─────────────────────────────── */
     .faq-grid {
@@ -950,11 +886,7 @@
       align-items: start;
     }
 
-    .faq-col {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+    .faq-col { display: flex; flex-direction: column; gap: 20px; }
 
     .faq-item {
       padding: 22px 22px;
@@ -991,11 +923,7 @@
       margin-top: 0;
     }
 
-    .faq-item.open p {
-      max-height: 400px;
-      margin-top: 10px;
-      opacity: 1;
-    }
+    .faq-item.open p { max-height: 400px; margin-top: 10px; opacity: 1; }
 
     .faq-item h4::after {
       content: " +";
@@ -1005,9 +933,7 @@
       float: right;
     }
 
-    .faq-item.open h4::after {
-      content: " −";
-    }
+    .faq-item.open h4::after { content: " −"; }
 
     /* ── Contact ─────────────────────────── */
     .contact-box {
@@ -1031,24 +957,16 @@
       margin-bottom: 10px;
     }
 
-    .contact-box p {
-      color: var(--ink-soft);
-      font-size: 1rem;
-      line-height: 1.7;
-    }
+    .contact-box p { color: var(--ink-soft); font-size: 1rem; line-height: 1.7; }
 
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .contact-links { display: flex; flex-direction: column; gap: 10px; }
 
     .contact-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      padding: 16px 20px;
+      padding: 14px 20px;
       border-radius: 12px;
       background: rgba(255,255,255,0.6);
       border: 1px solid var(--line);
@@ -1105,9 +1023,7 @@
     /* ── Responsive ──────────────────────── */
     @media (max-width: 900px) {
       .hero, .services-grid, .process, .project-grid,
-      .faq-grid, .contact-box {
-        grid-template-columns: 1fr;
-      }
+      .faq-grid, .contact-box { grid-template-columns: 1fr; }
       .hero { gap: 32px; }
       .art { order: -1; }
     }
@@ -1500,8 +1416,20 @@
         <div>
           <div class="contact-links">
             <a class="contact-row" href="mailto:annasheludko152@gmail.com">
-              <span class="label">email</span>
+              <span class="label" data-i18n="contact.emailLabel">email</span>
               <span>annasheludko152@gmail.com</span>
+            </a>
+            <a class="contact-row" href="https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-anna-sheludko.pdf" target="_blank" rel="noopener">
+              <span class="label" data-i18n="contact.cvLabel">cv</span>
+              <span data-i18n="contact.cvValue">english (pdf)</span>
+            </a>
+            <a class="contact-row" href="https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-pl-anna-sheludko.pdf" target="_blank" rel="noopener">
+              <span class="label" data-i18n="contact.cvLabelPl">cv</span>
+              <span data-i18n="contact.cvValuePl">polski (pdf)</span>
+            </a>
+            <a class="contact-row" href="https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-ua-anna-sheludko.pdf" target="_blank" rel="noopener">
+              <span class="label" data-i18n="contact.cvLabelUa">cv</span>
+              <span data-i18n="contact.cvValueUa">українською (pdf)</span>
             </a>
           </div>
           <div class="contact-note" data-i18n-html="contact.note">
@@ -1520,9 +1448,6 @@
   </div>
 
   <script>
-    /* ─────────────────────────────────────────
-       TRANSLATIONS
-       ───────────────────────────────────────── */
     const translations = {
       en: {
         "nav.whatid": "what i do",
@@ -1622,6 +1547,13 @@
         "contact.h": "Let's talk data.",
         "contact.p": "Send me a message about your project — what you're trying to do, what's getting in the way, and any deadlines. I'll reply within 24 hours with an honest answer about whether I can help.",
         "contact.note": "from ukraine · based in poland<br>replies within 24 hours",
+        "contact.emailLabel": "email",
+        "contact.cvLabel": "cv",
+        "contact.cvValue": "english (pdf)",
+        "contact.cvLabelPl": "cv",
+        "contact.cvValuePl": "polski (pdf)",
+        "contact.cvLabelUa": "cv",
+        "contact.cvValueUa": "українською (pdf)",
 
         "footer.rights": "© anna sheludko",
         "footer.built": "built with curiosity"
@@ -1638,8 +1570,8 @@
         "hero.h1a": "Buduję rzeczy",
         "hero.h1b": "z",
         "hero.h1c": "kodu i danych.",
-        "hero.intro1": "Kończę studia z inżynierii danych i pracuję z kodem oraz danymi — piszę w Pythonie, Javie i C++; projektuję i odpytyuję bazy danych, buduję pipeline’y danych i automatyzuję żmudne elementy pracy.",
-        "hero.intro2": "Niezależnie od tego, czy potrzebujesz małego skryptu, porządnego pipeline’u ETL, poprawki w bazie danych, raportu czy czegoś, czego jeszcze nie potrafisz dokładnie nazwać — <strong>jeśli chodzi o kod, prawdopodobnie mogę pomóc</strong>. A jeśli nie, powiem Ci to od razu.",
+        "hero.intro1": "Kończę studia z inżynierii danych i pracuję z kodem oraz danymi — piszę w Pythonie, Javie i C++; projektuję i odpytyuję bazy danych, buduję pipeline'y danych i automatyzuję żmudne elementy pracy.",
+        "hero.intro2": "Niezależnie od tego, czy potrzebujesz małego skryptu, porządnego pipeline'u ETL, poprawki w bazie danych, raportu czy czegoś, czego jeszcze nie potrafisz dokładnie nazwać — <strong>jeśli chodzi o kod, prawdopodobnie mogę pomóc</strong>. A jeśli nie, powiem Ci to od razu.",
         "hero.cta1": "opowiedz mi o projekcie",
         "hero.cta2": "co robię",
         "hero.status": "dostępna na zlecenia",
@@ -1665,7 +1597,7 @@
         "svc1.li2": "Narzędzia CLI, scrapery, boty",
         "svc1.li3": "Proste aplikacje webowe",
         "svc2.num": "02 — dane",
-        "svc2.h": "Pipeline’y i praca z danymi",
+        "svc2.h": "Pipeline'y i praca z danymi",
         "svc2.p": "Jeśli Twoje dane są rozrzucone po plikach i ręcznych eksportach, zaprojektuję porządny pipeline ETL, który zbierze to w całość — czysto i niezawodnie.",
         "svc2.li1": "Źródła CSV, Excel, API",
         "svc2.li2": "PostgreSQL, Oracle, MySQL",
@@ -1710,9 +1642,9 @@
         "faq.h": "Pytania klientów",
         "faq.sub": "kliknij, aby rozwinąć",
         "faq.q1": "Jakie zlecenia przyjmujesz?",
-        "faq.a1": "Wszystko, co wiąże się z pisaniem kodu lub pracą z danymi: małe skrypty automatyzujące, czyszczenie danych, poprawki w bazach danych, budowa pipeline’ów, raporty i proste narzędzia webowe. Jeśli coś wykracza poza mój zakres, powiem o tym podczas pierwszej rozmowy.",
+        "faq.a1": "Wszystko, co wiąże się z pisaniem kodu lub pracą z danymi: małe skrypty automatyzujące, czyszczenie danych, poprawki w bazach danych, budowa pipeline'ów, raporty i proste narzędzia webowe. Jeśli coś wykracza poza mój zakres, powiem o tym podczas pierwszej rozmowy.",
         "faq.q2": "Ile to trwa?",
-        "faq.a2": "Małe skrypty: kilka dni. Pełne pipeline’y ETL: 1–3 tygodnie. Poprawki w bazach danych i raporty: zwykle tydzień. Terminy ustalam realistycznie i zawsze potwierdzam je na piśmie.",
+        "faq.a2": "Małe skrypty: kilka dni. Pełne pipeline'y ETL: 1–3 tygodnie. Poprawki w bazach danych i raporty: zwykle tydzień. Terminy ustalam realistycznie i zawsze potwierdzam je na piśmie.",
         "faq.q3": "Czy pracujesz zdalnie?",
         "faq.a3": "Tak. Pracuję z klientami w różnych strefach czasowych. Możemy komunikować się przez e-mail, Slacka albo narzędzie, którego już używasz.",
         "faq.q4": "Jak rozliczasz pracę?",
@@ -1725,6 +1657,13 @@
         "contact.h": "Porozmawiajmy o danych.",
         "contact.p": "Napisz mi o swoim projekcie — co chcesz zrobić, co stoi na przeszkodzie i jakie masz terminy. Odpowiem w ciągu 24 godzin i szczerze powiem, czy mogę pomóc.",
         "contact.note": "z Ukrainy · mieszkam w Polsce<br>odpowiadam w ciągu 24 godzin",
+        "contact.emailLabel": "email",
+        "contact.cvLabel": "cv",
+        "contact.cvValue": "angielski (pdf)",
+        "contact.cvLabelPl": "cv",
+        "contact.cvValuePl": "polski (pdf)",
+        "contact.cvLabelUa": "cv",
+        "contact.cvValueUa": "ukraiński (pdf)",
 
         "footer.rights": "© anna sheludko",
         "footer.built": "zbudowane z ciekawości"
@@ -1742,7 +1681,7 @@
         "hero.h1b": "з",
         "hero.h1c": "коду та даних.",
         "hero.intro1": "Я завершую навчання за напрямом Data Engineering та володію широким стеком технологій для роботи з даними — пишу на Python, Java та C++; проєктую й запитую бази даних, будую пайплайни даних та автоматизую рутинні частини роботи.",
-        "hero.intro2": "Чи потрібен вам невеликий скрипт, повноцінний ETL-пайплайн, виправлення бази даних, звіт або щось, що ви ще не до кінця можете сформулювати — <strong>якщо це пов’язано з кодом, найімовірніше, я зможу допомогти</strong>. А якщо ні — одразу скажу.",
+        "hero.intro2": "Чи потрібен вам невеликий скрипт, повноцінний ETL-пайплайн, виправлення бази даних, звіт або щось, що ви ще не до кінця можете сформулювати — <strong>якщо це пов'язано з кодом, найімовірніше, я зможу допомогти</strong>. А якщо ні — одразу скажу.",
         "hero.cta1": "розкажіть про свій проєкт",
         "hero.cta2": "що я роблю",
         "hero.status": "доступна для фриланс-роботи",
@@ -1793,7 +1732,7 @@
         "proc.s3p": "Ви бачите прогрес кожні кілька днів. Якщо щось змінюється, ми обговорюємо це до того, як я продовжу.",
         "proc.s4num": "крок 04",
         "proc.s4h": "Передача",
-        "proc.s4p": "Ви отримуєте робочий код, документацію та короткий walkthrough. Це ваше рішення — без прив’язки до мене.",
+        "proc.s4p": "Ви отримуєте робочий код, документацію та короткий walkthrough. Це ваше рішення — без прив'язки до мене.",
 
         "proj.h": "Вибрані проєкти",
         "proj.sub": "системи / експерименти / навчання",
@@ -1813,7 +1752,7 @@
         "faq.h": "Питання клієнтів",
         "faq.sub": "натисніть, щоб розгорнути",
         "faq.q1": "Які замовлення ви берете?",
-        "faq.a1": "Усе, що пов’язане з написанням коду або роботою з даними: невеликі скрипти автоматизації, очищення даних, виправлення баз даних, побудова пайплайнів, звіти та прості вебінструменти. Якщо щось виходить за межі моєї компетенції, я скажу про це під час першої розмови.",
+        "faq.a1": "Усе, що пов'язане з написанням коду або роботою з даними: невеликі скрипти автоматизації, очищення даних, виправлення баз даних, побудова пайплайнів, звіти та прості вебінструменти. Якщо щось виходить за межі моєї компетенції, я скажу про це під час першої розмови.",
         "faq.q2": "Скільки це займає?",
         "faq.a2": "Невеликі скрипти: кілька днів. Повноцінні ETL-пайплайни: 1–3 тижні. Виправлення баз даних і звіти: зазвичай тиждень. Терміни реалістичні й завжди фіксуються письмово.",
         "faq.q3": "Ви працюєте віддалено?",
@@ -1821,13 +1760,20 @@
         "faq.q4": "Як ви розраховуєте вартість роботи?",
         "faq.a4": "Зазвичай це фіксована ціна за проєкт, узгоджена заздалегідь. Менші замовлення можна оплачувати погодинно, якщо вам так зручніше. Я завжди називаю ціну до початку роботи.",
         "faq.q5": "Кому належить код?",
-        "faq.a5": "Вам. Усе, що я передаю, — ваше: код, документація та конфігурація. Без прив’язки до мене та прихованих залежностей.",
+        "faq.a5": "Вам. Усе, що я передаю, — ваше: код, документація та конфігурація. Без прив'язки до мене та прихованих залежностей.",
         "faq.q6": "Що, якщо я точно не знаю, що мені потрібно?",
         "faq.a6": "Це нормально — саме для цього й потрібна перша розмова. Я допоможу визначити обсяг роботи, перш ніж ми на щось погодимося.",
 
         "contact.h": "Поговорімо про дані.",
         "contact.p": "Напишіть мені про свій проєкт — що ви хочете зробити, що заважає рухатися далі та які у вас терміни. Я відповім протягом 24 годин і чесно скажу, чи можу допомогти.",
         "contact.note": "з України · живу в Польщі<br>відповідаю протягом 24 годин",
+        "contact.emailLabel": "email",
+        "contact.cvLabel": "резюме",
+        "contact.cvValue": "англійською (pdf)",
+        "contact.cvLabelPl": "резюме",
+        "contact.cvValuePl": "польською (pdf)",
+        "contact.cvLabelUa": "резюме",
+        "contact.cvValueUa": "українською (pdf)",
 
         "footer.rights": "© anna sheludko",
         "footer.built": "створено з цікавості"
@@ -1840,9 +1786,6 @@
       ua: "Anna Sheludko — Інженерка та розробниця"
     };
 
-    /* ─────────────────────────────────────────
-       LANGUAGE SWITCHER (with smooth fade + sliding pill)
-       ───────────────────────────────────────── */
     const container = document.getElementById('page-container');
     const langPill = document.getElementById('lang-pill');
     let currentLang = 'en';
@@ -1863,16 +1806,12 @@
 
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
-        if (dict[key] !== undefined) {
-          el.textContent = dict[key];
-        }
+        if (dict[key] !== undefined) el.textContent = dict[key];
       });
 
       document.querySelectorAll("[data-i18n-html]").forEach(el => {
         const key = el.getAttribute("data-i18n-html");
-        if (dict[key] !== undefined) {
-          el.innerHTML = dict[key];
-        }
+        if (dict[key] !== undefined) el.innerHTML = dict[key];
       });
 
       document.documentElement.lang = lang;
@@ -1890,7 +1829,6 @@
 
       isSwitching = true;
 
-      // Move the sliding pill immediately (it feels snappy)
       document.querySelectorAll(".lang-btn").forEach(b => {
         b.classList.toggle("active", b.dataset.lang === lang);
       });
@@ -1900,8 +1838,6 @@
         applyTranslations(lang);
         currentLang = lang;
         try { localStorage.setItem("portfolio-lang", lang); } catch (e) {}
-
-        // Fade back in
         requestAnimationFrame(() => {
           container.classList.remove("lang-fading");
           setTimeout(() => { isSwitching = false; }, 300);
@@ -1911,7 +1847,6 @@
       if (instant) {
         finish();
       } else {
-        // Fade out
         container.classList.add("lang-fading");
         setTimeout(finish, 240);
       }
@@ -1921,9 +1856,6 @@
       btn.addEventListener("click", () => setLang(btn.dataset.lang));
     });
 
-    /* ─────────────────────────────────────────
-       INITIAL LANGUAGE
-       ───────────────────────────────────────── */
     (function () {
       let initialLang = "en";
       try {
@@ -1938,14 +1870,10 @@
       } catch (e) {}
       applyTranslations(initialLang);
       currentLang = initialLang;
-      // Set pill position after fonts load
       setTimeout(() => movePill(initialLang), 100);
       window.addEventListener('resize', () => movePill(currentLang));
     })();
 
-    /* ─────────────────────────────────────────
-       INTERACTIONS
-       ───────────────────────────────────────── */
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', e => {
         const target = document.querySelector(link.getAttribute('href'));
