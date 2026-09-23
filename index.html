@@ -4,161 +4,324 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anna Sheludko — Data Engineer</title>
-<meta name="description" content="Freelance data engineer. ETL pipelines, PostgreSQL, Python.">
+<meta name="description" content="Freelance data engineer. ETL pipelines, databases, Python.">
 <style>
   :root {
-    --bg: #fafaf9;
-    --fg: #1c1917;
-    --muted: #57534e;
-    --accent: #0f766e;
-    --line: #e7e5e4;
-    --code-bg: #f5f5f4;
+    --bg: #0a0a0a;
+    --bg-soft: #121212;
+    --panel: #16161a;
+    --fg: #e8e8e3;
+    --fg-dim: #a3a3a0;
+    --fg-mute: #6b6b68;
+    --accent: #7dd3c0;
+    --accent-dim: #4a9d8e;
+    --line: #232326;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size: 17px;
+    font-family: var(--sans);
+    font-size: 16px;
     line-height: 1.65;
     color: var(--fg);
     background: var(--bg);
     -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse at top, rgba(125, 211, 192, 0.08), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(125, 211, 192, 0.04), transparent 50%);
+    background-attachment: fixed;
+    min-height: 100vh;
   }
   .container {
-    max-width: 680px;
+    max-width: 780px;
     margin: 0 auto;
-    padding: 80px 24px 60px;
+    padding: 72px 24px 80px;
   }
-  header { margin-bottom: 56px; }
+
+  header {
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 56px;
+  }
+  .prompt {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .prompt .dots {
+    display: inline-flex;
+    gap: 6px;
+    margin-right: 8px;
+  }
+  .prompt .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .dot-r { background: #ef4444; }
+  .dot-y { background: #fbbf24; }
+  .dot-g { background: #10b981; }
+  .prompt .path { color: var(--fg-mute); }
+
   h1 {
-    font-size: 2.1rem;
-    font-weight: 700;
-    margin: 0 0 8px;
+    font-family: var(--mono);
+    font-size: clamp(1.9rem, 5vw, 2.8rem);
+    font-weight: 500;
     letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 8px;
   }
+  h1 .name { color: var(--fg); }
+  h1 .slash { color: var(--accent); }
+  h1 .role { color: var(--fg-dim); }
+
   .pronouns {
-    color: var(--muted);
-    font-size: 0.95rem;
-    font-weight: 400;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--fg-mute);
+    margin-bottom: 24px;
   }
-  .role {
-    color: var(--muted);
-    margin-top: 4px;
-    font-size: 1rem;
-  }
+
   .intro {
-    margin-top: 32px;
-    font-size: 1.08rem;
+    margin-top: 28px;
+    font-size: 1.05rem;
+    color: var(--fg-dim);
+    max-width: 62ch;
   }
-  .intro p { margin: 0 0 16px; }
+  .intro p + p { margin-top: 14px; }
+  .intro .hl { color: var(--fg); font-weight: 500; }
+
   .status {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: #ecfdf5;
-    color: #065f46;
-    padding: 6px 12px;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+    background: rgba(125, 211, 192, 0.08);
+    border: 1px solid rgba(125, 211, 192, 0.25);
+    padding: 7px 14px;
     border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-top: 20px;
+    margin-top: 28px;
   }
   .status::before {
     content: "";
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #10b981;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s ease-in-out infinite;
   }
-  section { margin-bottom: 56px; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  section { margin-bottom: 64px; }
   h2 {
-    font-size: 0.82rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    font-weight: 600;
-    margin: 0 0 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--line);
+    letter-spacing: 0.15em;
+    color: var(--fg-mute);
+    font-weight: 500;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
-  .stack-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 6px;
-    font-size: 0.97rem;
-  }
-  .stack-list li::before {
-    content: "→ ";
+  h2::before {
+    content: "//";
     color: var(--accent);
     font-weight: 600;
-    margin-right: 4px;
   }
-  .stack-list strong { font-weight: 600; }
-  .project {
+  h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ── Stack groups ─────────────────────── */
+  .stack-group {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stack-group:last-child { border-bottom: none; }
+  .stack-group-title {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent-dim);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .stack-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chip {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--fg-dim);
+    background: var(--bg-soft);
     border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 22px;
-    background: #fff;
-    transition: border-color 0.15s ease;
+    padding: 4px 10px;
+    border-radius: 5px;
+    transition: border-color 0.15s ease, color 0.15s ease;
   }
-  .project:hover { border-color: var(--accent); }
+  .chip:hover {
+    border-color: var(--accent-dim);
+    color: var(--fg);
+  }
+  .chip.strong {
+    color: var(--accent);
+    border-color: rgba(125, 211, 192, 0.3);
+    background: rgba(125, 211, 192, 0.06);
+  }
+
+  /* ── Projects ─────────────────────────── */
+  .project {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    overflow: hidden;
+  }
+  .project + .project { margin-top: 20px; }
+  .project::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .project:hover {
+    border-color: rgba(125, 211, 192, 0.4);
+    transform: translateY(-2px);
+  }
+  .project:hover::before { opacity: 1; }
+
+  .project-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 14px;
+  }
   .project h3 {
-    margin: 0 0 10px;
     font-size: 1.15rem;
     font-weight: 600;
+    line-height: 1.35;
   }
   .project h3 a {
     color: var(--fg);
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.15s ease;
+    transition: color 0.15s ease;
   }
-  .project h3 a:hover { border-bottom-color: var(--accent); }
+  .project h3 a:hover { color: var(--accent); }
+  .project .arrow {
+    font-family: var(--mono);
+    color: var(--fg-mute);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: color 0.15s ease, transform 0.2s ease;
+  }
+  .project:hover .arrow {
+    color: var(--accent);
+    transform: translate(3px, -3px);
+  }
+
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--fg-mute);
+    margin-bottom: 16px;
+  }
+  .project-meta span { display: inline-flex; align-items: center; gap: 5px; }
+  .project-meta .label { color: var(--accent-dim); }
+
   .project p {
-    margin: 0 0 12px;
-    color: var(--muted);
-    font-size: 0.97rem;
+    color: var(--fg-dim);
+    font-size: 0.95rem;
+    margin-bottom: 18px;
   }
-  .tags {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 0.82rem;
-    color: var(--muted);
+  .project p code {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: var(--bg);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--accent);
   }
-  .tags span {
-    display: inline-block;
-    background: var(--code-bg);
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-right: 4px;
-    margin-bottom: 4px;
+
+  /* ── Contact ──────────────────────────── */
+  .contact {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
-  a { color: var(--accent); }
-  .contact-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--fg);
+    font-size: 0.95rem;
+    transition: border-color 0.15s ease, background 0.15s ease;
   }
-  .contact-list li {
-    padding: 8px 0;
-    font-size: 1rem;
+  .contact-row:hover {
+    border-color: var(--accent);
+    background: var(--bg-soft);
   }
-  .contact-list a { text-decoration: none; }
-  .contact-list a:hover { text-decoration: underline; }
+  .contact-label {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--fg-mute);
+    min-width: 70px;
+  }
+  .contact-value { color: var(--fg); }
+  .contact-row:hover .contact-value { color: var(--accent); }
+
   footer {
     margin-top: 80px;
-    padding-top: 24px;
+    padding-top: 28px;
     border-top: 1px solid var(--line);
-    color: var(--muted);
-    font-size: 0.85rem;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--fg-mute);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
   }
-  @media (min-width: 640px) {
-    h1 { font-size: 2.4rem; }
-    .stack-list { grid-template-columns: 1fr 1fr; }
-    .container { padding-top: 100px; }
+  footer .sig { color: var(--accent); }
+
+  @media (max-width: 560px) {
+    .container { padding: 40px 20px 60px; }
+    footer { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
@@ -166,18 +329,30 @@
   <div class="container">
 
     <header>
-      <h1>Anna Sheludko <span class="pronouns">she / her</span></h1>
-      <div class="role">Data Engineer</div>
+      <div class="prompt">
+        <span class="dots">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+        </span>
+        <span class="path">~/portfolio</span>
+        <span>$ whoami</span>
+      </div>
+
+      <h1>
+        <span class="name">Anna Sheludko</span><span class="slash"> / </span><span class="role">Data Engineer</span>
+      </h1>
+      <div class="pronouns">she / her</div>
 
       <div class="intro">
         <p>
           I move data from places where it's messy to places where it's useful.
-          Most of my job is convincing broken CSV files that they can, in fact, be parsed.
+          <span class="hl">Most of my job is convincing broken CSV files that they can, in fact, be parsed.</span>
           The rest is writing SQL that doesn't make the database cry.
         </p>
         <p>
-          I build ETL pipelines, work with relational databases, and prepare data
-          for analytics — from raw files to validated, queryable tables.
+          Finishing a degree in <span class="hl">Data Engineering</span> at Kielce University of Technology —
+          which means I know the theory, and I'm now learning how much of it survives contact with production.
         </p>
       </div>
 
@@ -185,54 +360,143 @@
     </header>
 
     <section>
-      <h2>What I work with</h2>
-      <ul class="stack-list">
-        <li><strong>Languages:</strong> Python, SQL, PL/SQL</li>
-        <li><strong>Databases:</strong> PostgreSQL, Oracle, MySQL</li>
-        <li><strong>Data tools:</strong> Pandas, Excel, CSV, JSON</li>
-        <li><strong>Infrastructure:</strong> Docker, Git, GitHub Actions</li>
-        <li><strong>Validation & testing:</strong> Pandera, pytest</li>
-        <li><strong>Also:</strong> Airflow basics, REST APIs, data modeling</li>
-      </ul>
+      <h2>Skill set</h2>
+
+      <div class="stack-group">
+        <div class="stack-group-title">programming languages</div>
+        <div class="stack-items">
+          <span class="chip strong">Python</span>
+          <span class="chip strong">SQL</span>
+          <span class="chip">PL/SQL</span>
+          <span class="chip">C++</span>
+          <span class="chip">Java</span>
+          <span class="chip">R</span>
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <div class="stack-group-title">databases & data warehousing</div>
+        <div class="stack-items">
+          <span class="chip strong">PostgreSQL</span>
+          <span class="chip strong">Oracle</span>
+          <span class="chip">MySQL</span>
+          <span class="chip">MS SQL Server</span>
+          <span class="chip">NoSQL</span>
+          <span class="chip">Data warehouses</span>
+          <span class="chip">Big Data</span>
+          <span class="chip">Graph / semantic DBs</span>
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <div class="stack-group-title">data analysis & ML</div>
+        <div class="stack-items">
+          <span class="chip strong">Pandas</span>
+          <span class="chip strong">NumPy</span>
+          <span class="chip">Statistics</span>
+          <span class="chip">Forecasting</span>
+          <span class="chip">Machine learning</span>
+          <span class="chip">Data mining</span>
+          <span class="chip">NLP</span>
+          <span class="chip">Data visualization</span>
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <div class="stack-group-title">infrastructure & tooling</div>
+        <div class="stack-items">
+          <span class="chip strong">Docker</span>
+          <span class="chip strong">Git</span>
+          <span class="chip">GitHub Actions</span>
+          <span class="chip">Linux</span>
+          <span class="chip">Windows</span>
+          <span class="chip">Computer networks</span>
+          <span class="chip">Cloud basics</span>
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <div class="stack-group-title">data quality & engineering practices</div>
+        <div class="stack-items">
+          <span class="chip strong">Pandera</span>
+          <span class="chip strong">pytest</span>
+          <span class="chip">ETL principles</span>
+          <span class="chip">YAML config</span>
+          <span class="chip">Structured logging</span>
+          <span class="chip">Data security / GDPR</span>
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <div class="stack-group-title">business & soft skills</div>
+        <div class="stack-items">
+          <span class="chip">Project management</span>
+          <span class="chip">Agile / Scrum</span>
+          <span class="chip">Economics & finance</span>
+          <span class="chip">Communication</span>
+          <span class="chip">Design Thinking</span>
+          <span class="chip">Advanced Excel</span>
+          <span class="chip">GIS</span>
+        </div>
+      </div>
     </section>
 
     <section>
       <h2>Projects</h2>
 
       <div class="project">
-        <h3>
-          <a href="https://github.com/anna1sheludko/end-to-end-pipeline">
-            End-to-End ETL Pipeline with Python and PostgreSQL
-          </a>
-        </h3>
-        <p>
-          A CSV → PostgreSQL pipeline for e-commerce data — 9 tables, ~1.5 million rows.
-          Extracts with retries, validates with Pandera, and loads with PostgreSQL's
-          <code>COPY</code> protocol (8x faster than row-by-row inserts).
-          Docker-based, YAML-configured, and tested with pytest on every push.
-        </p>
-        <div class="tags">
-          <span>Python</span>
-          <span>Pandas</span>
-          <span>PostgreSQL</span>
-          <span>Docker</span>
-          <span>Pandera</span>
-          <span>pytest</span>
+        <div class="project-head">
+          <h3>
+            <a href="https://github.com/anna1sheludko/end-to-end-pipeline">
+              End-to-End ETL Pipeline
+            </a>
+          </h3>
+          <span class="arrow">↗</span>
         </div>
+
+        <div class="project-meta">
+          <span><span class="label">rows:</span> ~1.5M</span>
+          <span><span class="label">tables:</span> 9</span>
+          <span><span class="label">load:</span> 8x faster with COPY</span>
+        </div>
+
+        <p>
+          A CSV → PostgreSQL pipeline for e-commerce data. Extracts with retries,
+          validates with Pandera, and loads with PostgreSQL's <code>COPY</code> protocol
+          — 8x faster than row-by-row inserts. Docker-based, YAML-configured,
+          tested with pytest on every push.
+        </p>
+      </div>
+
+      <div class="project" style="opacity: 0.55;">
+        <div class="project-head">
+          <h3>Next project — coming soon</h3>
+        </div>
+        <p>
+          Currently building an API → PostgreSQL pipeline.
+          Something has to keep the first one from getting lonely.
+        </p>
       </div>
 
     </section>
 
     <section>
       <h2>Contact</h2>
-      <ul class="contact-list">
-        <li>Email — <a href="mailto:annasheludko152@gmail.com">annasheludko152@gmail.com</a></li>
-        <li>GitHub — <a href="https://github.com/anna1sheludko">@anna1sheludko</a></li>
-      </ul>
+      <div class="contact">
+        <a class="contact-row" href="mailto:annasheludko152@gmail.com">
+          <span class="contact-label">email</span>
+          <span class="contact-value">annasheludko152@gmail.com</span>
+        </a>
+        <a class="contact-row" href="https://github.com/anna1sheludko">
+          <span class="contact-label">github</span>
+          <span class="contact-value">@anna1sheludko</span>
+        </a>
+      </div>
     </section>
 
     <footer>
-      Have a project in mind? The email works.
+      <span>Have a project in mind? The email works.</span>
+      <span class="sig">— built by hand, no templates</span>
     </footer>
 
   </div>
