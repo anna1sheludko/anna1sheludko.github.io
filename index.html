@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anna Sheludko — Data Engineer</title>
+<meta name="description" content="Freelance data engineer. ETL pipelines, PostgreSQL, Python.">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #0f766e;
+    --line: #e7e5e4;
+    --code-bg: #f5f5f4;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--fg);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 80px 24px 60px;
+  }
+  header { margin-bottom: 56px; }
+  h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .pronouns {
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 400;
+  }
+  .role {
+    color: var(--muted);
+    margin-top: 4px;
+    font-size: 1rem;
+  }
+  .intro {
+    margin-top: 32px;
+    font-size: 1.08rem;
+  }
+  .intro p { margin: 0 0 16px; }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ecfdf5;
+    color: #065f46;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 20px;
+  }
+  .status::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+  }
+  section { margin-bottom: 56px; }
+  h2 {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 0 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .stack-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    font-size: 0.97rem;
+  }
+  .stack-list li::before {
+    content: "→ ";
+    color: var(--accent);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .stack-list strong { font-weight: 600; }
+  .project {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 22px;
+    background: #fff;
+    transition: border-color 0.15s ease;
+  }
+  .project:hover { border-color: var(--accent); }
+  .project h3 {
+    margin: 0 0 10px;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+  .project h3 a {
+    color: var(--fg);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+  .project h3 a:hover { border-bottom-color: var(--accent); }
+  .project p {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 0.97rem;
+  }
+  .tags {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .tags span {
+    display: inline-block;
+    background: var(--code-bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+  a { color: var(--accent); }
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .contact-list li {
+    padding: 8px 0;
+    font-size: 1rem;
+  }
+  .contact-list a { text-decoration: none; }
+  .contact-list a:hover { text-decoration: underline; }
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  @media (min-width: 640px) {
+    h1 { font-size: 2.4rem; }
+    .stack-list { grid-template-columns: 1fr 1fr; }
+    .container { padding-top: 100px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <h1>Anna Sheludko <span class="pronouns">she / her</span></h1>
+      <div class="role">Data Engineer</div>
+
+      <div class="intro">
+        <p>
+          I move data from places where it's messy to places where it's useful.
+          Most of my job is convincing broken CSV files that they can, in fact, be parsed.
+          The rest is writing SQL that doesn't make the database cry.
+        </p>
+        <p>
+          I build ETL pipelines, work with relational databases, and prepare data
+          for analytics — from raw files to validated, queryable tables.
+        </p>
+      </div>
+
+      <div class="status">Available for freelance work</div>
+    </header>
+
+    <section>
+      <h2>What I work with</h2>
+      <ul class="stack-list">
+        <li><strong>Languages:</strong> Python, SQL, PL/SQL</li>
+        <li><strong>Databases:</strong> PostgreSQL, Oracle, MySQL</li>
+        <li><strong>Data tools:</strong> Pandas, Excel, CSV, JSON</li>
+        <li><strong>Infrastructure:</strong> Docker, Git, GitHub Actions</li>
+        <li><strong>Validation & testing:</strong> Pandera, pytest</li>
+        <li><strong>Also:</strong> Airflow basics, REST APIs, data modeling</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+
+      <div class="project">
+        <h3>
+          <a href="https://github.com/anna1sheludko/end-to-end-pipeline">
+            End-to-End ETL Pipeline with Python and PostgreSQL
+          </a>
+        </h3>
+        <p>
+          A CSV → PostgreSQL pipeline for e-commerce data — 9 tables, ~1.5 million rows.
+          Extracts with retries, validates with Pandera, and loads with PostgreSQL's
+          <code>COPY</code> protocol (8x faster than row-by-row inserts).
+          Docker-based, YAML-configured, and tested with pytest on every push.
+        </p>
+        <div class="tags">
+          <span>Python</span>
+          <span>Pandas</span>
+          <span>PostgreSQL</span>
+          <span>Docker</span>
+          <span>Pandera</span>
+          <span>pytest</span>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <ul class="contact-list">
+        <li>Email — <a href="mailto:annasheludko152@gmail.com">annasheludko152@gmail.com</a></li>
+        <li>GitHub — <a href="https://github.com/anna1sheludko">@anna1sheludko</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      Have a project in mind? The email works.
+    </footer>
+
+  </div>
+</body>
+</html>
