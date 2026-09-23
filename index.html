@@ -1001,6 +1001,64 @@
       line-height: 1.6;
     }
 
+    /* CV toggle */
+    .cv-toggle {
+      background: transparent;
+      border: 1px dashed var(--line);
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-transform: lowercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.18s ease;
+      width: 100%;
+    }
+
+    .cv-toggle:hover {
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+      border-style: solid;
+    }
+
+    .cv-toggle-arrow {
+      font-size: 0.65rem;
+      transition: transform 0.25s ease;
+    }
+
+    .cv-toggle.open .cv-toggle-arrow { transform: rotate(180deg); }
+
+    .cv-others {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.2s ease;
+      margin-top: 0;
+    }
+
+    .cv-others.open {
+      max-height: 200px;
+      opacity: 1;
+      margin-top: 4px;
+    }
+
+    .cv-others .cv-other {
+      font-size: 0.8rem;
+      padding: 12px 18px;
+      background: rgba(255,255,255,0.4);
+    }
+
+    .cv-others .cv-other[hidden] { display: none; }
+
     /* ── Footer ──────────────────────────── */
     footer {
       margin-top: 48px;
@@ -1043,7 +1101,6 @@
 <body>
   <div class="container" id="page-container">
 
-    <!-- ── Top bar ───────────────────── -->
     <div class="topbar">
       <a class="brand" href="#top" aria-label="Anna Sheludko home">
         <span class="brand-mark" aria-hidden="true"></span>
@@ -1066,7 +1123,6 @@
       </div>
     </div>
 
-    <!-- ── Hero ──────────────────────── -->
     <header class="hero" id="top">
       <div>
         <div class="eyebrow" data-i18n="hero.eyebrow">freelance engineer · software &amp; data</div>
@@ -1168,7 +1224,6 @@
       </div>
     </header>
 
-    <!-- ── Services ──────────────────── -->
     <section class="section" id="services">
       <div class="section-head">
         <h2 data-i18n="svc.h">What I can do for you</h2>
@@ -1220,7 +1275,6 @@
       </div>
     </section>
 
-    <!-- ── Process ───────────────────── -->
     <section class="section" id="process">
       <div class="section-head">
         <h2 data-i18n="proc.h">How we work together</h2>
@@ -1251,7 +1305,6 @@
       </div>
     </section>
 
-    <!-- ── Projects ──────────────────── -->
     <section class="section" id="projects">
       <div class="section-head">
         <h2 data-i18n="proj.h">Selected work</h2>
@@ -1299,7 +1352,6 @@
       </div>
     </section>
 
-    <!-- ── Skills ────────────────────── -->
     <section class="section">
       <div class="section-head">
         <h2 data-i18n="skills.h">Things I use</h2>
@@ -1342,7 +1394,6 @@
       </div>
     </section>
 
-    <!-- ── FAQ ───────────────────────── -->
     <section class="section" id="faq">
       <div class="section-head">
         <h2 data-i18n="faq.h">Questions clients ask</h2>
@@ -1401,7 +1452,6 @@
       </div>
     </section>
 
-    <!-- ── Contact ───────────────────── -->
     <section class="section" id="contact">
       <div class="contact-box">
         <div>
@@ -1419,18 +1469,31 @@
               <span class="label" data-i18n="contact.emailLabel">email</span>
               <span>annasheludko152@gmail.com</span>
             </a>
-            <a class="contact-row" href="https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-anna-sheludko.pdf" target="_blank" rel="noopener">
+
+            <a class="contact-row" id="cv-main" href="https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-anna-sheludko.pdf" target="_blank" rel="noopener">
               <span class="label" data-i18n="contact.cvLabel">cv</span>
               <span data-i18n="contact.cvValue">english (pdf)</span>
             </a>
-            <a class="contact-row" href="https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-pl-anna-sheludko.pdf" target="_blank" rel="noopener">
-              <span class="label" data-i18n="contact.cvLabelPl">cv</span>
-              <span data-i18n="contact.cvValuePl">polski (pdf)</span>
-            </a>
-            <a class="contact-row" href="https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-ua-anna-sheludko.pdf" target="_blank" rel="noopener">
-              <span class="label" data-i18n="contact.cvLabelUa">cv</span>
-              <span data-i18n="contact.cvValueUa">українською (pdf)</span>
-            </a>
+
+            <button class="cv-toggle" id="cv-toggle" type="button">
+              <span data-i18n="contact.cvOther">other languages</span>
+              <span class="cv-toggle-arrow">▾</span>
+            </button>
+
+            <div class="cv-others" id="cv-others">
+              <a class="contact-row cv-other" data-cv-lang="en" href="https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-anna-sheludko.pdf" target="_blank" rel="noopener">
+                <span class="label" data-i18n="contact.cvLabelEn">cv</span>
+                <span data-i18n="contact.cvValueEn">english (pdf)</span>
+              </a>
+              <a class="contact-row cv-other" data-cv-lang="pl" href="https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-pl-anna-sheludko.pdf" target="_blank" rel="noopener">
+                <span class="label" data-i18n="contact.cvLabelPl">cv</span>
+                <span data-i18n="contact.cvValuePl">polski (pdf)</span>
+              </a>
+              <a class="contact-row cv-other" data-cv-lang="ua" href="https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-ua-anna-sheludko.pdf" target="_blank" rel="noopener">
+                <span class="label" data-i18n="contact.cvLabelUa">cv</span>
+                <span data-i18n="contact.cvValueUa">українською (pdf)</span>
+              </a>
+            </div>
           </div>
           <div class="contact-note" data-i18n-html="contact.note">
             from ukraine · based in poland<br>
@@ -1550,6 +1613,9 @@
         "contact.emailLabel": "email",
         "contact.cvLabel": "cv",
         "contact.cvValue": "english (pdf)",
+        "contact.cvOther": "other languages",
+        "contact.cvLabelEn": "cv",
+        "contact.cvValueEn": "english (pdf)",
         "contact.cvLabelPl": "cv",
         "contact.cvValuePl": "polski (pdf)",
         "contact.cvLabelUa": "cv",
@@ -1659,7 +1725,10 @@
         "contact.note": "z Ukrainy · mieszkam w Polsce<br>odpowiadam w ciągu 24 godzin",
         "contact.emailLabel": "email",
         "contact.cvLabel": "cv",
-        "contact.cvValue": "angielski (pdf)",
+        "contact.cvValue": "polski (pdf)",
+        "contact.cvOther": "inne języki",
+        "contact.cvLabelEn": "cv",
+        "contact.cvValueEn": "angielski (pdf)",
         "contact.cvLabelPl": "cv",
         "contact.cvValuePl": "polski (pdf)",
         "contact.cvLabelUa": "cv",
@@ -1769,7 +1838,10 @@
         "contact.note": "з України · живу в Польщі<br>відповідаю протягом 24 годин",
         "contact.emailLabel": "email",
         "contact.cvLabel": "резюме",
-        "contact.cvValue": "англійською (pdf)",
+        "contact.cvValue": "українською (pdf)",
+        "contact.cvOther": "інші мови",
+        "contact.cvLabelEn": "резюме",
+        "contact.cvValueEn": "англійською (pdf)",
         "contact.cvLabelPl": "резюме",
         "contact.cvValuePl": "польською (pdf)",
         "contact.cvLabelUa": "резюме",
@@ -1786,6 +1858,12 @@
       ua: "Anna Sheludko — Інженерка та розробниця"
     };
 
+    const cvData = {
+      en: "https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-anna-sheludko.pdf",
+      pl: "https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-pl-anna-sheludko.pdf",
+      ua: "https://github.com/anna1sheludko/end-to-end-pipeline/raw/main/docs/cv-ats-ua-anna-sheludko.pdf"
+    };
+
     const container = document.getElementById('page-container');
     const langPill = document.getElementById('lang-pill');
     let currentLang = 'en';
@@ -1798,6 +1876,27 @@
       const btnRect = btn.getBoundingClientRect();
       langPill.style.left = (btnRect.left - switchRect.left) + 'px';
       langPill.style.width = btnRect.width + 'px';
+    }
+
+    function updateCvSection(lang) {
+      const cvMain = document.getElementById('cv-main');
+      const cvOthers = document.querySelectorAll('.cv-other');
+      if (!cvMain) return;
+
+      if (cvData[lang]) cvMain.href = cvData[lang];
+
+      cvOthers.forEach(el => {
+        if (el.dataset.cvLang === lang) {
+          el.setAttribute('hidden', '');
+        } else {
+          el.removeAttribute('hidden');
+        }
+      });
+
+      const toggle = document.getElementById('cv-toggle');
+      const others = document.getElementById('cv-others');
+      if (toggle) toggle.classList.remove('open');
+      if (others) others.classList.remove('open');
     }
 
     function applyTranslations(lang) {
@@ -1820,6 +1919,8 @@
       document.querySelectorAll(".lang-btn").forEach(b => {
         b.classList.toggle("active", b.dataset.lang === lang);
       });
+
+      updateCvSection(lang);
     }
 
     function setLang(lang, { instant = false } = {}) {
@@ -1855,6 +1956,15 @@
     document.querySelectorAll(".lang-btn").forEach(btn => {
       btn.addEventListener("click", () => setLang(btn.dataset.lang));
     });
+
+    const cvToggle = document.getElementById('cv-toggle');
+    const cvOthersEl = document.getElementById('cv-others');
+    if (cvToggle && cvOthersEl) {
+      cvToggle.addEventListener('click', () => {
+        cvToggle.classList.toggle('open');
+        cvOthersEl.classList.toggle('open');
+      });
+    }
 
     (function () {
       let initialLang = "en";
