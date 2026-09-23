@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anna Sheludko — Freelance Data Engineer</title>
-  <meta name="description" content="Freelance data engineer. I build ETL pipelines, clean messy data, and move it into PostgreSQL — reliably, documented, and on time.">
+  <title>Anna Sheludko — Engineer & Builder</title>
+  <meta name="description" content="Freelance software and data engineer. I build small tools, fix messy data, and automate the boring parts.">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
@@ -124,15 +124,28 @@
       letter-spacing: 0.08em;
       text-transform: lowercase;
       transition: color 0.15s ease;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background: var(--terracotta);
+      transition: width 0.25s ease;
     }
 
     nav a:hover { color: var(--terracotta); }
+    nav a:hover::after { width: 100%; }
 
     /* ── Hero ────────────────────────────── */
     .hero {
       display: grid;
-      grid-template-columns: 1.35fr 0.65fr;
-      gap: 42px;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
       align-items: center;
       padding-bottom: 36px;
     }
@@ -159,8 +172,8 @@
     h1 {
       font-family: var(--serif);
       font-weight: 600;
-      font-size: clamp(2.8rem, 5.4vw, 5.4rem);
-      line-height: 0.98;
+      font-size: clamp(2.6rem, 4.8vw, 4.8rem);
+      line-height: 1;
       letter-spacing: -0.045em;
       color: var(--ink);
     }
@@ -175,7 +188,7 @@
       margin-top: 26px;
       max-width: 58ch;
       color: var(--ink-soft);
-      font-size: 1.08rem;
+      font-size: 1.06rem;
       line-height: 1.75;
     }
 
@@ -184,10 +197,12 @@
       font-weight: 600;
     }
 
+    .intro p + p { margin-top: 14px; }
+
     .actions {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 14px;
       flex-wrap: wrap;
       margin-top: 30px;
     }
@@ -206,14 +221,43 @@
       font-size: 0.75rem;
       letter-spacing: 0.08em;
       text-transform: lowercase;
+      cursor: pointer;
+      border: none;
       transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-      box-shadow: 0 8px 20px rgba(29, 45, 38, 0.1);
+      box-shadow: 0 8px 20px rgba(29, 45, 38, 0.12);
+      position: relative;
+      overflow: hidden;
     }
 
+    .button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.2), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .button:hover::before { opacity: 1; }
+
     .button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(29, 45, 38, 0.14);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(29, 45, 38, 0.18);
       background: var(--terracotta);
+    }
+
+    .button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 10px rgba(29, 45, 38, 0.15);
+    }
+
+    .button .arrow {
+      display: inline-block;
+      transition: transform 0.25s ease;
+    }
+
+    .button:hover .arrow {
+      transform: translateX(4px);
     }
 
     .button.secondary {
@@ -223,10 +267,18 @@
       box-shadow: none;
     }
 
+    .button.secondary::before { display: none; }
+
     .button.secondary:hover {
       background: rgba(45, 77, 61, 0.06);
       color: var(--terracotta);
       border-color: var(--terracotta);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(29, 45, 38, 0.08);
+    }
+
+    .button.secondary .arrow {
+      transform: none;
     }
 
     .status {
@@ -249,75 +301,219 @@
       margin-right: 10px;
       vertical-align: middle;
       box-shadow: 0 0 0 5px rgba(77, 122, 96, 0.12);
+      animation: pulse-ring 2.4s ease-in-out infinite;
     }
 
-    /* ── Art card ────────────────────────── */
+    @keyframes pulse-ring {
+      0%, 100% { box-shadow: 0 0 0 5px rgba(77, 122, 96, 0.12); }
+      50% { box-shadow: 0 0 0 10px rgba(77, 122, 96, 0.04); }
+    }
+
+    /* ── Live pipeline (hero visual) ─────── */
     .art {
+      position: relative;
+    }
+
+    .pipeline {
+      position: relative;
+      border-radius: 14px;
+      background: #1e2a25;
+      border: 1px solid rgba(45, 77, 61, 0.3);
+      box-shadow:
+        18px 22px 0 rgba(104, 139, 115, 0.15),
+        0 20px 40px rgba(25, 39, 32, 0.15);
+      overflow: hidden;
+      font-family: var(--mono);
+      color: #d1d5db;
+    }
+
+    .pipeline-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #17211d;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .pipeline-header .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-r { background: #ef4444; opacity: 0.7; }
+    .dot-y { background: #fbbf24; opacity: 0.7; }
+    .dot-g { background: #10b981; opacity: 0.7; }
+
+    .pipeline-header .title {
+      margin-left: 8px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.03em;
+    }
+
+    .pipeline-body {
+      padding: 20px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .stage:hover {
+      background: rgba(125, 211, 192, 0.06);
+      border-color: rgba(125, 211, 192, 0.2);
+    }
+
+    .stage.active {
+      background: rgba(125, 211, 192, 0.08);
+      border-color: rgba(125, 211, 192, 0.3);
+      box-shadow: 0 0 0 3px rgba(125, 211, 192, 0.05);
+    }
+
+    .stage.complete {
+      background: rgba(134, 239, 172, 0.06);
+      border-color: rgba(134, 239, 172, 0.2);
+    }
+
+    .stage-num {
+      width: 32px;
+      height: 32px;
       display: grid;
       place-items: center;
-      position: relative;
+      border-radius: 50%;
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.3s ease;
     }
 
-    .art-card {
-      position: relative;
-      width: min(100%, 340px);
-      aspect-ratio: 1 / 1.08;
-      border-radius: 28px;
-      background: linear-gradient(135deg, rgba(221, 234, 222, 0.9), rgba(237, 235, 227, 0.94));
-      border: 1px solid rgba(45, 77, 61, 0.12);
-      box-shadow: 18px 22px 0 rgba(104, 139, 115, 0.12);
-      overflow: hidden;
+    .stage.active .stage-num {
+      background: #7dd3c0;
+      color: #1e2a25;
+      border-color: #7dd3c0;
+      box-shadow: 0 0 20px rgba(125, 211, 192, 0.4);
     }
 
-    .art-card::before,
-    .art-card::after {
+    .stage.complete .stage-num {
+      background: #86efac;
+      color: #1e2a25;
+      border-color: #86efac;
+    }
+
+    .stage-info {
+      min-width: 0;
+    }
+
+    .stage-name {
+      font-size: 0.82rem;
+      color: #e8e8e3;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .stage-meta {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 2px;
+    }
+
+    .stage-badge {
+      font-size: 0.6rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .stage.active .stage-badge {
+      background: rgba(125, 211, 192, 0.15);
+      color: #7dd3c0;
+    }
+
+    .stage.complete .stage-badge {
+      background: rgba(134, 239, 172, 0.15);
+      color: #86efac;
+    }
+
+    .connector {
+      position: relative;
+      height: 20px;
+      margin-left: 27px;
+      width: 2px;
+    }
+
+    .connector::before {
       content: "";
       position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.24);
-      filter: blur(6px);
-    }
-
-    .art-card::before {
-      width: 150px;
-      height: 150px;
-      top: 40px;
-      right: 30px;
-    }
-
-    .art-card::after {
-      width: 120px;
-      height: 120px;
-      bottom: 40px;
-      left: 30px;
-    }
-
-    .monogram {
-      position: absolute;
       inset: 0;
-      display: grid;
-      place-items: center;
-      font-family: var(--serif);
-      font-size: clamp(8rem, 14vw, 13rem);
-      line-height: 1;
-      color: rgba(43, 69, 58, 0.92);
-      letter-spacing: -0.08em;
-      font-weight: 600;
+      background: linear-gradient(180deg, rgba(125, 211, 192, 0.05), rgba(125, 211, 192, 0.15), rgba(125, 211, 192, 0.05));
+      border-radius: 2px;
     }
 
-    .tiny-note {
+    .flow-dot {
       position: absolute;
-      right: 22px;
-      bottom: 22px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(43, 69, 58, 0.12);
-      background: rgba(255,255,255,0.35);
-      color: var(--green-deep);
-      font-family: var(--mono);
-      font-size: 0.64rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      left: -2px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #7dd3c0;
+      box-shadow: 0 0 8px #7dd3c0;
+      opacity: 0;
+      animation: flow 2s ease-in-out infinite;
+    }
+
+    .flow-dot:nth-child(1) { animation-delay: 0s; }
+    .flow-dot:nth-child(2) { animation-delay: 0.66s; }
+    .flow-dot:nth-child(3) { animation-delay: 1.33s; }
+
+    @keyframes flow {
+      0% { top: 0; opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { top: calc(100% - 6px); opacity: 0; }
+    }
+
+    .pipeline-footer {
+      padding: 12px 20px 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .pipeline-footer .ok {
+      color: #86efac;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pipeline-footer .ok::before {
+      content: "●";
+      font-size: 0.6rem;
     }
 
     /* ── Sections ────────────────────────── */
@@ -369,7 +565,7 @@
 
     .service:hover {
       border-color: rgba(45, 77, 61, 0.28);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       box-shadow: 0 14px 28px var(--shadow);
     }
 
@@ -435,6 +631,12 @@
       border-radius: 16px;
       background: rgba(255,255,255,0.18);
       border: 1px solid var(--line);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-2px);
+      border-color: rgba(45, 77, 61, 0.22);
     }
 
     .step-num {
@@ -469,13 +671,19 @@
 
     .project {
       position: relative;
-      min-height: 320px;
+      min-height: 340px;
       border-radius: 22px;
       padding: 28px 26px 60px;
       background: rgba(255,255,255,0.18);
       border: 1px solid var(--line);
       box-shadow: 0 12px 28px rgba(25, 39, 32, 0.04);
       overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(25, 39, 32, 0.1);
     }
 
     .project.primary {
@@ -492,6 +700,11 @@
       font-size: 1.5rem;
       color: rgba(255,255,255,0.76);
       font-family: var(--mono);
+      transition: transform 0.3s ease;
+    }
+
+    .project.primary:hover::before {
+      transform: translate(4px, -4px);
     }
 
     .project-tag {
@@ -503,21 +716,17 @@
     }
 
     .project h3 {
-      margin-top: 32px;
+      margin-top: 30px;
       margin-bottom: 16px;
       font-family: var(--serif);
-      font-size: clamp(2rem, 2.8vw, 2.8rem);
-      line-height: 0.98;
+      font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+      line-height: 1;
       letter-spacing: -0.05em;
       font-weight: 600;
     }
 
-    .project h3 a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .project h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+    .project h3 a { color: inherit; text-decoration: none; }
+    .project h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 
     .project p {
       color: var(--ink-soft);
@@ -600,6 +809,11 @@
       top: 22px;
       font-size: 1.2rem;
       color: var(--terracotta);
+      transition: transform 0.4s ease;
+    }
+
+    .project.secondary:hover::before {
+      transform: rotate(180deg);
     }
 
     .project.secondary .project-meta span {
@@ -616,6 +830,9 @@
     }
 
     .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       border: 1px solid rgba(45, 77, 61, 0.14);
       background: rgba(255,255,255,0.25);
       color: var(--ink-soft);
@@ -624,19 +841,40 @@
       font-family: var(--mono);
       font-size: 0.72rem;
       letter-spacing: 0.04em;
-      transition: all 0.15s ease;
+      transition: all 0.18s ease;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .chip::after {
+      content: "↗";
+      font-size: 0.68rem;
+      opacity: 0;
+      color: var(--terracotta);
+      margin-left: -2px;
+      transition: opacity 0.2s ease, margin-left 0.2s ease;
+    }
+
+    .chip:hover::after {
+      opacity: 1;
+      margin-left: 2px;
     }
 
     .chip:hover {
       background: var(--sage-soft);
       color: var(--green-deep);
-      border-color: rgba(45, 77, 61, 0.2);
-      transform: translateY(-1px);
+      border-color: rgba(45, 77, 61, 0.25);
+      transform: translateY(-2px) scale(1.03);
     }
 
     .chip.primary {
       background: var(--green-deep);
       border-color: var(--green-deep);
+      color: #f8f8f5;
+    }
+
+    .chip.primary::after {
       color: #f8f8f5;
     }
 
@@ -651,6 +889,13 @@
       grid-template-columns: 1fr 1fr;
       gap: 20px;
       margin-top: 8px;
+      align-items: start;
+    }
+
+    .faq-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .faq-item {
@@ -658,6 +903,14 @@
       border-radius: 16px;
       background: rgba(255,255,255,0.22);
       border: 1px solid var(--line);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .faq-item:hover {
+      background: rgba(255,255,255,0.4);
+      border-color: rgba(45, 77, 61, 0.22);
+      transform: translateY(-2px);
     }
 
     .faq-item h4 {
@@ -665,7 +918,7 @@
       font-size: 1.25rem;
       font-weight: 600;
       letter-spacing: -0.02em;
-      margin-bottom: 8px;
+      margin-bottom: 0;
       line-height: 1.2;
     }
 
@@ -673,6 +926,30 @@
       font-size: 0.92rem;
       color: var(--ink-soft);
       line-height: 1.7;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, margin-top 0.35s ease, opacity 0.25s ease;
+      opacity: 0;
+      margin-top: 0;
+    }
+
+    .faq-item.open p {
+      max-height: 260px;
+      margin-top: 10px;
+      opacity: 1;
+    }
+
+    .faq-item h4::after {
+      content: " +";
+      color: var(--terracotta);
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      float: right;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.open h4::after {
+      content: " −";
     }
 
     /* ── Contact ─────────────────────────── */
@@ -714,28 +991,29 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      padding: 14px 18px;
+      padding: 16px 20px;
       border-radius: 12px;
-      background: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.6);
       border: 1px solid var(--line);
       text-decoration: none;
       color: var(--green-deep);
       font-family: var(--mono);
-      font-size: 0.78rem;
+      font-size: 0.85rem;
       letter-spacing: 0.04em;
       transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
     }
 
     .contact-row:hover {
       border-color: var(--terracotta);
-      background: rgba(255,255,255,0.85);
-      transform: translateY(-1px);
+      background: rgba(255,255,255,0.9);
+      transform: translateY(-2px);
       color: var(--terracotta);
     }
 
     .contact-row .label {
       color: var(--muted);
       text-transform: lowercase;
+      font-size: 0.72rem;
     }
 
     .contact-note {
@@ -781,7 +1059,7 @@
       .container { padding: 20px 18px 50px; }
       .topbar { align-items: flex-start; flex-direction: column; }
       nav { gap: 12px 16px; }
-      h1 { font-size: 2.6rem; }
+      h1 { font-size: 2.4rem; }
       .section-head { display: block; }
       .section-head span { display: block; margin-top: 8px; }
       footer { flex-direction: column; align-items: flex-start; }
@@ -798,7 +1076,7 @@
         anna.sheludko
       </a>
       <nav>
-        <a href="#services">services</a>
+        <a href="#services">what i do</a>
         <a href="#process">process</a>
         <a href="#projects">projects</a>
         <a href="#faq">faq</a>
@@ -809,32 +1087,95 @@
     <!-- ── Hero ──────────────────────── -->
     <header class="hero" id="top">
       <div>
-        <div class="eyebrow">freelance data engineer</div>
-        <h1>Your data,<br><span class="highlight">out of the mess.</span></h1>
+        <div class="eyebrow">freelance engineer · software &amp; data</div>
+        <h1>I build things<br>with <span class="highlight">code and data.</span></h1>
 
         <div class="intro">
           <p>
-            I build the pipelines that take your spreadsheets, CSVs, and
-            database exports — and turn them into <strong>clean, queryable tables</strong>
-            your team can actually use.
+            Software engineering graduate with a wide toolbox — I write code in
+            Python, Java, and C++; I design and query databases; I build data
+            pipelines; and I automate the boring parts of your workflow.
           </p>
-          <p style="margin-top:16px;">
-            No more copying rows into Excel at midnight. No more "which file has the
-            latest numbers?". Just reliable data, ready when you need it.
+          <p>
+            Whether you need a small script, a proper ETL pipeline, a database
+            fix, a report, or something you haven't fully figured out yet —
+            <strong>if it involves code, I can probably help</strong>. And if I can't,
+            I'll tell you straight away.
           </p>
         </div>
 
         <div class="actions">
-          <a class="button" href="#contact">Start a project →</a>
-          <a class="button secondary" href="#projects">See my work</a>
+          <a class="button" href="#contact">
+            tell me about your project <span class="arrow">→</span>
+          </a>
+          <a class="button secondary" href="#services">
+            what i do <span class="arrow">→</span>
+          </a>
           <span class="status">available for freelance</span>
         </div>
       </div>
 
-      <div class="art" aria-label="Minimal decorative monogram in a soft sage and cream palette">
-        <div class="art-card">
-          <div class="monogram"><span>A</span></div>
-          <div class="tiny-note">data + design</div>
+      <div class="art" aria-label="Animated ETL pipeline visualization">
+        <div class="pipeline">
+          <div class="pipeline-header">
+            <span class="dot dot-r"></span>
+            <span class="dot dot-y"></span>
+            <span class="dot dot-g"></span>
+            <span class="title">pipeline.run()</span>
+          </div>
+          <div class="pipeline-body">
+            <div class="stage" data-stage="0">
+              <div class="stage-num">01</div>
+              <div class="stage-info">
+                <div class="stage-name">Extract</div>
+                <div class="stage-meta">read CSV files</div>
+              </div>
+              <div class="stage-badge">9 files</div>
+            </div>
+            <div class="connector">
+              <span class="flow-dot"></span>
+              <span class="flow-dot"></span>
+              <span class="flow-dot"></span>
+            </div>
+            <div class="stage" data-stage="1">
+              <div class="stage-num">02</div>
+              <div class="stage-info">
+                <div class="stage-name">Transform</div>
+                <div class="stage-meta">clean + validate</div>
+              </div>
+              <div class="stage-badge">Pandera</div>
+            </div>
+            <div class="connector">
+              <span class="flow-dot"></span>
+              <span class="flow-dot"></span>
+              <span class="flow-dot"></span>
+            </div>
+            <div class="stage" data-stage="2">
+              <div class="stage-num">03</div>
+              <div class="stage-info">
+                <div class="stage-name">Load</div>
+                <div class="stage-meta">COPY → PostgreSQL</div>
+              </div>
+              <div class="stage-badge">8× faster</div>
+            </div>
+            <div class="connector">
+              <span class="flow-dot"></span>
+              <span class="flow-dot"></span>
+              <span class="flow-dot"></span>
+            </div>
+            <div class="stage" data-stage="3">
+              <div class="stage-num">✓</div>
+              <div class="stage-info">
+                <div class="stage-name">Query-ready</div>
+                <div class="stage-meta">1.5M rows in PostgreSQL</div>
+              </div>
+              <div class="stage-badge">done</div>
+            </div>
+          </div>
+          <div class="pipeline-footer">
+            <span class="ok">pipeline completed · 40s</span>
+            <span>v1.0</span>
+          </div>
         </div>
       </div>
     </header>
@@ -842,50 +1183,50 @@
     <!-- ── Services ──────────────────── -->
     <section class="section" id="services">
       <div class="section-head">
-        <h2>What I do for you</h2>
-        <span>three ways I usually help</span>
+        <h2>What I can do for you</h2>
+        <span>directions i usually work in</span>
       </div>
 
       <div class="services-grid">
         <article class="service">
           <div class="service-num">01 — build</div>
-          <h3>Build you a pipeline</h3>
+          <h3>Small tools &amp; scripts</h3>
+          <p>
+            A script that renames 500 files. A tool that emails you when a
+            website changes. A tiny web app that does one job well.
+          </p>
+          <ul>
+            <li>Python, Java, C++</li>
+            <li>CLI tools, web scrapers, bots</li>
+            <li>Simple web apps</li>
+          </ul>
+        </article>
+
+        <article class="service">
+          <div class="service-num">02 — data</div>
+          <h3>Pipelines &amp; data work</h3>
           <p>
             If your data lives in scattered files and manual exports, I'll design
-            a proper ETL pipeline that pulls it all together.
+            a proper ETL pipeline that pulls it all together — clean and reliable.
           </p>
           <ul>
-            <li>CSV, Excel, and API sources</li>
+            <li>CSV, Excel, API sources</li>
             <li>PostgreSQL, Oracle, MySQL</li>
-            <li>Docker-based, reproducible</li>
+            <li>Validation, cleaning, deduplication</li>
           </ul>
         </article>
 
         <article class="service">
-          <div class="service-num">02 — clean</div>
-          <h3>Clean up your data</h3>
+          <div class="service-num">03 — analyze</div>
+          <h3>SQL, reports &amp; insights</h3>
           <p>
-            Duplicates, broken dates, negative prices, inconsistent names — I've
-            seen it all. I'll make your data actually trustworthy.
-          </p>
-          <ul>
-            <li>Automated validation rules</li>
-            <li>Deduplication and type fixes</li>
-            <li>Quality reports you can show</li>
-          </ul>
-        </article>
-
-        <article class="service">
-          <div class="service-num">03 — query</div>
-          <h3>Write SQL that answers things</h3>
-          <p>
-            Once the data is in one place, you need someone to ask it the right
-            questions. I'll write the SQL and the reports.
+            Once the data is in one place, someone has to ask it the right
+            questions. I'll write the SQL, build the report, and explain what it means.
           </p>
           <ul>
             <li>Revenue, delivery, customer reports</li>
-            <li>Performance-tuned queries</li>
-            <li>Documented and repeatable</li>
+            <li>Statistics, forecasting, ML basics</li>
+            <li>Dashboards and visual summaries</li>
           </ul>
         </article>
       </div>
@@ -902,7 +1243,7 @@
         <div class="step">
           <div class="step-num">step 01</div>
           <h4>Short call</h4>
-          <p>We talk for 20–30 minutes. You show me the data, I ask dumb questions. Free.</p>
+          <p>We talk for 20–30 minutes. You show me the problem, I ask dumb questions. Free.</p>
         </div>
         <div class="step">
           <div class="step-num">step 02</div>
@@ -944,18 +1285,9 @@
           </p>
 
           <div class="project-result">
-            <div class="result-item">
-              <strong>1.5M</strong>
-              rows loaded
-            </div>
-            <div class="result-item">
-              <strong>8×</strong>
-              faster loading
-            </div>
-            <div class="result-item">
-              <strong>40s</strong>
-              end-to-end
-            </div>
+            <div class="result-item"><strong>1.5M</strong>rows loaded</div>
+            <div class="result-item"><strong>8×</strong>faster loading</div>
+            <div class="result-item"><strong>40s</strong>end-to-end</div>
           </div>
 
           <div class="project-meta">
@@ -987,28 +1319,38 @@
       </div>
 
       <div class="skills-strip">
-        <span class="chip primary">Python</span>
-        <span class="chip primary">SQL</span>
-        <span class="chip primary">PostgreSQL</span>
-        <span class="chip primary">Pandas</span>
-        <span class="chip primary">Docker</span>
-        <span class="chip">NumPy</span>
-        <span class="chip">Oracle</span>
-        <span class="chip">PL/SQL</span>
-        <span class="chip">MySQL</span>
-        <span class="chip">Pandera</span>
-        <span class="chip">pytest</span>
-        <span class="chip">Git</span>
-        <span class="chip">GitHub Actions</span>
-        <span class="chip">ETL</span>
-        <span class="chip">Data quality</span>
-        <span class="chip">Statistics</span>
-        <span class="chip">Forecasting</span>
-        <span class="chip">Machine learning</span>
-        <span class="chip">NLP</span>
-        <span class="chip">Big data</span>
-        <span class="chip">Excel</span>
-        <span class="chip">Agile</span>
+        <a class="chip primary" href="https://www.python.org/" target="_blank" rel="noopener">Python</a>
+        <a class="chip primary" href="https://en.wikipedia.org/wiki/SQL" target="_blank" rel="noopener">SQL</a>
+        <a class="chip primary" href="https://www.postgresql.org/" target="_blank" rel="noopener">PostgreSQL</a>
+        <a class="chip primary" href="https://pandas.pydata.org/" target="_blank" rel="noopener">Pandas</a>
+        <a class="chip primary" href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>
+        <a class="chip primary" href="https://git-scm.com/" target="_blank" rel="noopener">Git</a>
+        <a class="chip" href="https://www.java.com/" target="_blank" rel="noopener">Java</a>
+        <a class="chip" href="https://isocpp.org/" target="_blank" rel="noopener">C++</a>
+        <a class="chip" href="https://www.r-project.org/" target="_blank" rel="noopener">R</a>
+        <a class="chip" href="https://numpy.org/" target="_blank" rel="noopener">NumPy</a>
+        <a class="chip" href="https://www.oracle.com/database/" target="_blank" rel="noopener">Oracle</a>
+        <a class="chip" href="https://www.oracle.com/database/technologies/appdev/plsql.html" target="_blank" rel="noopener">PL/SQL</a>
+        <a class="chip" href="https://www.mysql.com/" target="_blank" rel="noopener">MySQL</a>
+        <a class="chip" href="https://www.microsoft.com/en-us/sql-server" target="_blank" rel="noopener">MS SQL Server</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/NoSQL" target="_blank" rel="noopener">NoSQL</a>
+        <a class="chip" href="https://pandera.readthedocs.io/" target="_blank" rel="noopener">Pandera</a>
+        <a class="chip" href="https://pytest.org/" target="_blank" rel="noopener">pytest</a>
+        <a class="chip" href="https://github.com/features/actions" target="_blank" rel="noopener">GitHub Actions</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/Extract,_transform,_load" target="_blank" rel="noopener">ETL</a>
+        <a class="chip" href="https://restfulapi.net/" target="_blank" rel="noopener">REST APIs</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/Data_quality" target="_blank" rel="noopener">Data quality</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/Statistics" target="_blank" rel="noopener">Statistics</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/Forecasting" target="_blank" rel="noopener">Forecasting</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/Machine_learning" target="_blank" rel="noopener">Machine learning</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/Natural_language_processing" target="_blank" rel="noopener">NLP</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/Big_data" target="_blank" rel="noopener">Big data</a>
+        <a class="chip" href="https://www.linux.org/" target="_blank" rel="noopener">Linux</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/Computer_network" target="_blank" rel="noopener">Networks</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/Cloud_computing" target="_blank" rel="noopener">Cloud basics</a>
+        <a class="chip" href="https://www.microsoft.com/en-us/microsoft-365/excel" target="_blank" rel="noopener">Excel</a>
+        <a class="chip" href="https://agilemanifesto.org/" target="_blank" rel="noopener">Agile</a>
+        <a class="chip" href="https://en.wikipedia.org/wiki/Project_management" target="_blank" rel="noopener">Project management</a>
       </div>
     </section>
 
@@ -1016,51 +1358,57 @@
     <section class="section" id="faq">
       <div class="section-head">
         <h2>Questions clients ask</h2>
-        <span>before we start</span>
+        <span>click to expand</span>
       </div>
 
       <div class="faq-grid">
-        <div class="faq-item">
-          <h4>How do you charge?</h4>
-          <p>
-            Fixed price per project, agreed upfront. Smaller projects can be
-            hourly if you prefer. I'll always tell you the number before I start.
-          </p>
+        <div class="faq-col">
+          <div class="faq-item">
+            <h4>What kind of work do you take?</h4>
+            <p>
+              Anything that involves writing code or handling data. Small automation
+              scripts, data cleaning, database fixes, pipeline builds, reports,
+              simple web tools. If it's outside my range, I'll say so on the first call.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>How long does it take?</h4>
+            <p>
+              Small scripts: a few days. Full ETL pipelines: 1–3 weeks. Database
+              fixes and reports: usually a week. Realistic timelines, in writing.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>Do you work remotely?</h4>
+            <p>
+              Yes. I work with clients across time zones. Communication via email,
+              Slack, or whatever tool you already use.
+            </p>
+          </div>
         </div>
-        <div class="faq-item">
-          <h4>How long does it take?</h4>
-          <p>
-            A typical ETL pipeline takes 1–3 weeks. Small clean-up jobs take a few
-            days. I'll give you a realistic timeline in the plan.
-          </p>
-        </div>
-        <div class="faq-item">
-          <h4>Who owns the code?</h4>
-          <p>
-            You do. Everything I deliver is yours — code, docs, and configuration.
-            No lock-in, no hidden dependencies.
-          </p>
-        </div>
-        <div class="faq-item">
-          <h4>Do you work remotely?</h4>
-          <p>
-            Yes. I work with clients across time zones. Communication via email,
-            Slack, or whatever tool you already use.
-          </p>
-        </div>
-        <div class="faq-item">
-          <h4>What if I don't know exactly what I need?</h4>
-          <p>
-            That's normal — and that's what the first call is for. I'll help you
-            figure out the scope before we commit to anything.
-          </p>
-        </div>
-        <div class="faq-item">
-          <h4>What if the project doesn't work out?</h4>
-          <p>
-            You only pay for completed milestones. If at any point you're not happy,
-            we stop and you keep what's been delivered.
-          </p>
+
+        <div class="faq-col">
+          <div class="faq-item">
+            <h4>How do you charge?</h4>
+            <p>
+              Fixed price per project, agreed upfront. Smaller jobs can be hourly
+              if you prefer. I always give you the number before I start.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>Who owns the code?</h4>
+            <p>
+              You do. Everything I deliver is yours — code, docs, and configuration.
+              No lock-in, no hidden dependencies.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>What if I don't know exactly what I need?</h4>
+            <p>
+              That's normal — and that's what the first call is for. I'll help you
+              figure out the scope before we commit to anything.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -1071,9 +1419,9 @@
         <div>
           <h3>Let's talk data.</h3>
           <p>
-            Tell me about your data — where it lives, what shape it's in, and what
-            you wish you could do with it. I'll reply within 24 hours with an
-            honest answer about whether I can help.
+            Send me a message about your project — what you're trying to do,
+            what's getting in the way, and any deadlines. I'll reply within
+            24 hours with an honest answer about whether I can help.
           </p>
         </div>
 
@@ -1082,10 +1430,6 @@
             <a class="contact-row" href="mailto:annasheludko152@gmail.com">
               <span class="label">email</span>
               <span>annasheludko152@gmail.com</span>
-            </a>
-            <a class="contact-row" href="https://github.com/anna1sheludko">
-              <span class="label">github</span>
-              <span>@anna1sheludko</span>
             </a>
           </div>
           <div class="contact-note">
@@ -1102,666 +1446,66 @@
     </footer>
 
   </div>
-</body>
-</html>      z-index: 1;
-    }
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 56px;
-    }
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
 
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--green-deep);
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      letter-spacing: 0.06em;
-      text-transform: lowercase;
-    }
+    document.querySelectorAll('.button').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        btn.style.setProperty('--x', x + '%');
+        btn.style.setProperty('--y', y + '%');
+      });
+    });
 
-    .brand-mark {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, var(--green-deep), var(--sage));
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3);
-    }
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('open');
+      });
+    });
 
-    .brand-mark::before {
-      content: "A";
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      color: rgba(255,255,255,0.92);
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      line-height: 1;
-      font-weight: 700;
-    }
+    const stages = document.querySelectorAll('.pipeline .stage');
+    let currentStage = 0;
 
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--ink-soft);
-      font-family: var(--mono);
-      font-size: 0.74rem;
-      letter-spacing: 0.08em;
-      text-transform: lowercase;
-      transition: color 0.15s ease;
-    }
-
-    nav a:hover {
-      color: var(--terracotta);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
-      gap: 42px;
-      align-items: center;
-      min-height: 500px;
-      padding-bottom: 28px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--green-deep);
-      margin-bottom: 18px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 32px;
-      height: 1px;
-      background: rgba(45, 77, 61, 0.35);
-    }
-
-    h1 {
-      font-family: var(--serif);
-      font-weight: 600;
-      font-size: clamp(4rem, 7vw, 7rem);
-      line-height: 0.9;
-      letter-spacing: -0.06em;
-      color: var(--ink);
-    }
-
-    h1 .highlight {
-      color: var(--green);
-      font-style: italic;
-      font-weight: 500;
-    }
-
-    .intro {
-      margin-top: 26px;
-      max-width: 60ch;
-      color: var(--ink-soft);
-      font-size: 1.08rem;
-    }
-
-    .intro strong {
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 18px;
-      border-radius: 999px;
-      background: var(--green-deep);
-      color: #f8f8f5;
-      text-decoration: none;
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: lowercase;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      box-shadow: 0 8px 20px rgba(29, 45, 38, 0.1);
-    }
-
-    .button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(29, 45, 38, 0.14);
-    }
-
-    .status {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      color: var(--green-deep);
-      text-transform: lowercase;
-    }
-
-    .status::before {
-      content: "";
-      display: inline-block;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--green);
-      margin-right: 10px;
-      vertical-align: middle;
-      box-shadow: 0 0 0 5px rgba(77, 122, 96, 0.12);
-    }
-
-    .art {
-      display: grid;
-      place-items: center;
-      min-height: 360px;
-      position: relative;
-    }
-
-    .art-card {
-      position: relative;
-      width: min(100%, 360px);
-      aspect-ratio: 1 / 1.08;
-      border-radius: 28px;
-      background: linear-gradient(135deg, rgba(221, 234, 222, 0.9), rgba(237, 235, 227, 0.94));
-      border: 1px solid rgba(45, 77, 61, 0.12);
-      box-shadow: 18px 22px 0 rgba(104, 139, 115, 0.12);
-      overflow: hidden;
-    }
-
-    .art-card::before,
-    .art-card::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.24);
-      filter: blur(6px);
-    }
-
-    .art-card::before {
-      width: 150px;
-      height: 150px;
-      top: 40px;
-      right: 30px;
-    }
-
-    .art-card::after {
-      width: 120px;
-      height: 120px;
-      bottom: 40px;
-      left: 30px;
-    }
-
-    .monogram {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      font-family: var(--serif);
-      font-size: clamp(8rem, 14vw, 13rem);
-      line-height: 1;
-      color: rgba(43, 69, 58, 0.92);
-      letter-spacing: -0.08em;
-      font-weight: 600;
-    }
-
-    .monogram span {
-      display: inline-block;
-      transform: translateY(5px);
-    }
-
-    .tiny-note {
-      position: absolute;
-      right: 22px;
-      bottom: 22px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(43, 69, 58, 0.12);
-      background: rgba(255,255,255,0.35);
-      color: var(--green-deep);
-      font-family: var(--mono);
-      font-size: 0.64rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .section {
-      margin-top: 30px;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 22px;
-    }
-
-    .section-head h2 {
-      font-family: var(--serif);
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
-      line-height: 1;
-      letter-spacing: -0.05em;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .section-head span {
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .skill-grid {
-      display: grid;
-      grid-template-columns: 0.75fr 1.25fr;
-      gap: 32px;
-      align-items: start;
-    }
-
-    .skill-copy {
-      color: var(--ink-soft);
-      font-size: 1.02rem;
-      line-height: 1.9;
-      padding-top: 10px;
-    }
-
-    .skill-copy p + p { margin-top: 18px; }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .chip {
-      border: 1px solid rgba(45, 77, 61, 0.14);
-      background: rgba(255,255,255,0.25);
-      color: var(--ink-soft);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.04em;
-      transition: all 0.15s ease;
-    }
-
-    .chip:hover {
-      background: var(--sage-soft);
-      color: var(--green-deep);
-      border-color: rgba(45, 77, 61, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .chip.primary {
-      background: var(--green-deep);
-      border-color: var(--green-deep);
-      color: #f8f8f5;
-    }
-
-    .chip.primary:hover {
-      background: var(--terracotta);
-      border-color: var(--terracotta);
-    }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 22px;
-      margin-top: 12px;
-    }
-
-    .project {
-      position: relative;
-      min-height: 290px;
-      border-radius: 22px;
-      padding: 28px 26px 22px;
-      background: rgba(255,255,255,0.18);
-      border: 1px solid var(--line);
-      box-shadow: 0 12px 28px rgba(25, 39, 32, 0.04);
-      overflow: hidden;
-    }
-
-    .project.primary {
-      background: linear-gradient(180deg, var(--green-deep), #2a4339);
-      color: #f8f8f5;
-      border-color: rgba(45, 77, 61, 0.18);
-    }
-
-    .project.primary::before {
-      content: "→";
-      position: absolute;
-      right: 26px;
-      top: 22px;
-      font-size: 1.5rem;
-      color: rgba(255,255,255,0.76);
-      font-family: var(--mono);
-    }
-
-    .project-tag {
-      font-family: var(--mono);
-      font-size: 0.66rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0.8;
-    }
-
-    .project h3 {
-      margin-top: 32px;
-      margin-bottom: 18px;
-      font-family: var(--serif);
-      font-size: clamp(2.1rem, 3vw, 3rem);
-      line-height: 0.96;
-      letter-spacing: -0.05em;
-      font-weight: 600;
-    }
-
-    .project p {
-      color: var(--ink-soft);
-      max-width: 42ch;
-      line-height: 1.8;
-      font-size: 0.97rem;
-    }
-
-    .project.primary p {
-      color: rgba(248,248,245,0.82);
-    }
-
-    .project code {
-      font-family: var(--mono);
-      background: rgba(255,255,255,0.08);
-      padding: 2px 6px;
-      border-radius: 5px;
-      color: #dfeadf;
-    }
-
-    .project.primary code {
-      color: #eef7ec;
-    }
-
-    .project-meta {
-      position: absolute;
-      left: 26px;
-      bottom: 22px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .project-meta span {
-      font-family: var(--mono);
-      font-size: 0.64rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 6px 9px;
-      border-radius: 999px;
-      background: rgba(248,248,245,0.08);
-      color: inherit;
-    }
-
-    .project.secondary {
-      background: linear-gradient(180deg, var(--panel), rgba(255,255,255,0.14));
-    }
-
-    .project.secondary::before {
-      content: "✦";
-      position: absolute;
-      right: 24px;
-      top: 22px;
-      font-size: 1.2rem;
-      color: var(--terracotta);
-    }
-
-    .project.secondary .project-meta span {
-      background: rgba(104, 139, 115, 0.1);
-      color: var(--green-deep);
-    }
-
-    .contact-box {
-      margin-top: 36px;
-      background: linear-gradient(180deg, rgba(223,234,223,0.8), rgba(239, 240, 235, 0.86));
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 26px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .contact-box h3 {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 0.96;
-      letter-spacing: -0.05em;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .contact-box p {
-      color: var(--ink-soft);
-      font-size: 1rem;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: lowercase;
-    }
-
-    .contact-links a {
-      color: var(--green-deep);
-      text-decoration: none;
-    }
-
-    .contact-links a:hover {
-      color: var(--terracotta);
-    }
-
-    footer {
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
-      text-transform: lowercase;
-      color: var(--muted);
-    }
-
-    footer span:last-child {
-      color: var(--green-deep);
-    }
-
-    @media (max-width: 860px) {
-      .hero, .skill-grid, .project-grid, .contact-box {
-        grid-template-columns: 1fr;
+    function highlightNext() {
+      stages.forEach(s => s.classList.remove('active', 'complete'));
+      for (let i = 0; i < currentStage; i++) {
+        stages[i].classList.add('complete');
       }
-      .hero {
-        display: grid;
-        gap: 28px;
+      if (currentStage < stages.length) {
+        stages[currentStage].classList.add('active');
       }
-      .art {
-        order: -1;
+      currentStage = (currentStage + 1) % (stages.length + 1);
+      if (currentStage === 0) {
+        setTimeout(() => {
+          stages.forEach(s => s.classList.remove('complete'));
+        }, 800);
       }
-      .contact-box {
-        display: block;
-      }
-      .contact-links { margin-top: 18px; }
     }
 
-    @media (max-width: 560px) {
-      .container { padding: 20px 18px 50px; }
-      .topbar { align-items: flex-start; flex-direction: column; }
-      nav { gap: 12px 16px; }
-      h1 { font-size: 3.4rem; }
-      .section-head { display: block; }
-      .section-head span { display: block; margin-top: 8px; }
-      .project { min-height: 265px; }
-      .project h3 { font-size: 2.3rem; }
-      footer { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="topbar">
-      <a class="brand" href="#top" aria-label="Anna Sheludko home">
-        <span class="brand-mark" aria-hidden="true"></span>
-        anna.sheludko
-      </a>
-      <nav>
-        <a href="#skills">skills</a>
-        <a href="#projects">projects</a>
-        <a href="#contact">contact</a>
-      </nav>
-    </div>
+    setTimeout(() => {
+      highlightNext();
+      setInterval(highlightNext, 1400);
+    }, 600);
 
-    <header class="hero" id="top">
-      <div>
-        <div class="eyebrow">data engineer</div>
-        <h1>Building systems<br>for <span class="highlight">messy data</span>.</h1>
-
-        <div class="intro">
-          <p>I’m Anna — a data engineer studying the craft of making raw, unreliable information usable. I like clean pipelines, thoughtful patterns, and the occasional reminder that even the messiest CSV can become something useful.</p>
-        </div>
-
-        <div class="actions">
-          <a class="button" href="#projects">View projects</a>
-          <span class="status">available for freelance work</span>
-        </div>
-      </div>
-
-      <div class="art" aria-label="Minimal decorative monogram in a soft sage and cream palette">
-        <div class="art-card">
-          <div class="monogram"><span>A</span></div>
-          <div class="tiny-note">data + design</div>
-        </div>
-      </div>
-    </header>
-
-    <section class="section" id="skills">
-      <div class="section-head">
-        <h2>Tools & interests</h2>
-        <span>studying / building / refining</span>
-      </div>
-
-      <div class="skill-grid">
-        <div class="skill-copy">
-          <p>I work across data pipelines, quality checks, databases and workflow automation.</p>
-          <p>My focus is on reliable engineering: keep the system predictable, the data trustworthy, and the process understandable.</p>
-        </div>
-
-        <div class="chips">
-          <span class="chip primary">Python</span>
-          <span class="chip primary">SQL</span>
-          <span class="chip primary">PostgreSQL</span>
-          <span class="chip">Pandas</span>
-          <span class="chip">NumPy</span>
-          <span class="chip">Oracle</span>
-          <span class="chip">PL/SQL</span>
-          <span class="chip">ETL</span>
-          <span class="chip">Docker</span>
-          <span class="chip">Git</span>
-          <span class="chip">GitHub Actions</span>
-          <span class="chip">Pandera</span>
-          <span class="chip">pytest</span>
-          <span class="chip">Data quality</span>
-          <span class="chip">Statistics</span>
-          <span class="chip">Forecasting</span>
-          <span class="chip">Machine learning</span>
-          <span class="chip">NLP</span>
-          <span class="chip">Big data</span>
-          <span class="chip">Agile</span>
-          <span class="chip">Excel</span>
-          <span class="chip">GIS</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="projects">
-      <div class="section-head">
-        <h2>Selected work</h2>
-        <span>systems / experiments / learning</span>
-      </div>
-
-      <div class="project-grid">
-        <article class="project primary">
-          <div class="project-tag">project 01</div>
-          <h3>End-to-End<br>ETL Pipeline</h3>
-          <p>A CSV → PostgreSQL pipeline for e-commerce data, with retries, schema validation, and PostgreSQL <code>COPY</code> for faster loading.</p>
-          <div class="project-meta">
-            <span>~1.5M rows</span>
-            <span>9 tables</span>
-            <span>docker</span>
-          </div>
-        </article>
-
-        <article class="project secondary">
-          <div class="project-tag">project 02</div>
-          <h3>API → Postgres</h3>
-          <p>Currently in progress — a new pipeline that keeps the first one company.</p>
-          <div class="project-meta">
-            <span>coming soon</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="contact-box">
-        <div>
-          <h3>Let’s talk data.</h3>
-          <p>If you have a project, a problem, or just want to compare notes, I’m happy to connect.</p>
-        </div>
-        <div class="contact-links">
-          <a href="mailto:annasheludko152@gmail.com">annasheludko152@gmail.com</a>
-          <a href="https://github.com/anna1sheludko">github.com/anna1sheludko</a>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <span>© anna sheludko</span>
-      <span>built with curiosity</span>
-    </footer>
-  </div>
+    stages.forEach((stage, i) => {
+      stage.addEventListener('click', () => {
+        stages.forEach(s => s.classList.remove('active', 'complete'));
+        for (let j = 0; j <= i; j++) {
+          stages[j].classList.add(j === i ? 'active' : 'complete');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
