@@ -691,13 +691,13 @@
     /* ── Projects ────────────────────────── */
     .project-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1fr 1fr;
       gap: 22px;
     }
 
     .project {
       position: relative;
-      min-height: 340px;
+      min-height: 380px;
       border-radius: 22px;
       padding: 28px 26px 60px;
       background: rgba(255,255,255,0.18);
@@ -737,10 +737,10 @@
     }
 
     .project h3 {
-      margin-top: 30px;
-      margin-bottom: 16px;
+      margin-top: 26px;
+      margin-bottom: 14px;
       font-family: var(--serif);
-      font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+      font-size: clamp(1.7rem, 2.4vw, 2.3rem);
       line-height: 1;
       letter-spacing: -0.05em;
       font-weight: 600;
@@ -749,7 +749,7 @@
     .project h3 a { color: inherit; text-decoration: none; }
     .project h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 
-    .project p { color: var(--ink-soft); max-width: 46ch; line-height: 1.75; font-size: 0.96rem; }
+    .project p { color: var(--ink-soft); max-width: 46ch; line-height: 1.7; font-size: 0.94rem; }
 
     .project.primary p { color: rgba(248,248,245,0.82); }
 
@@ -764,11 +764,11 @@
 
     .project.primary code { color: #eef7ec; }
 
-    .project-result { display: flex; gap: 18px; margin-top: 22px; flex-wrap: wrap; }
+    .project-result { display: flex; gap: 18px; margin-top: 20px; flex-wrap: wrap; }
 
     .result-item {
       font-family: var(--mono);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
@@ -776,7 +776,7 @@
     .result-item strong {
       display: block;
       font-family: var(--serif);
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 600;
       letter-spacing: -0.02em;
       text-transform: none;
@@ -1339,14 +1339,27 @@
         </article>
 
         <article class="project secondary">
-          <div class="project-tag" data-i18n="proj2.tag">project 02 · in progress</div>
-          <h3 data-i18n="proj2.h">API → Postgres</h3>
+          <div class="project-tag" data-i18n="proj2.tag">project 02 · daily pipeline</div>
+          <h3>
+            <a href="https://github.com/anna1sheludko/nbp-etl-pipeline">
+              NBP Currency ETL
+            </a>
+          </h3>
           <p data-i18n="proj2.p">
-            A new pipeline pulling data from a public REST API into PostgreSQL.
-            Something has to keep the first one from getting lonely.
+            Daily pipeline fetching official exchange rates from the NBP API
+            into PostgreSQL with incremental loading and a scheduler.
           </p>
+
+          <div class="project-result">
+            <div class="result-item"><strong>30+</strong><span data-i18n="proj2.r1">currencies</span></div>
+            <div class="result-item"><strong>2×</strong><span data-i18n="proj2.r2">daily runs</span></div>
+            <div class="result-item"><strong>11</strong><span data-i18n="proj2.r3">tests</span></div>
+          </div>
+
           <div class="project-meta">
-            <span data-i18n="proj2.meta">coming soon</span>
+            <span>python</span>
+            <span>rest api</span>
+            <span>postgresql</span>
           </div>
         </article>
       </div>
@@ -1584,10 +1597,11 @@
         "proj1.r1": "rows loaded",
         "proj1.r2": "faster loading",
         "proj1.r3": "end-to-end",
-        "proj2.tag": "project 02 · in progress",
-        "proj2.h": "API → Postgres",
-        "proj2.p": "A new pipeline pulling data from a public REST API into PostgreSQL. Something has to keep the first one from getting lonely.",
-        "proj2.meta": "coming soon",
+        "proj2.tag": "project 02 · daily pipeline",
+        "proj2.p": "Daily pipeline fetching official exchange rates from the NBP API into PostgreSQL with incremental loading and a scheduler.",
+        "proj2.r1": "currencies",
+        "proj2.r2": "daily runs",
+        "proj2.r3": "tests",
 
         "skills.h": "Things I use",
         "skills.sub": "my daily toolbox",
@@ -1697,10 +1711,11 @@
         "proj1.r1": "załadowanych wierszy",
         "proj1.r2": "szybsze ładowanie",
         "proj1.r3": "od początku do końca",
-        "proj2.tag": "projekt 02 · w toku",
-        "proj2.h": "API → Postgres",
-        "proj2.p": "Nowy pipeline pobierający dane z publicznego REST API do PostgreSQL. Ktoś musi przecież dotrzymać towarzystwa pierwszemu.",
-        "proj2.meta": "wkrótce",
+        "proj2.tag": "projekt 02 · pipeline dzienny",
+        "proj2.p": "Codzienny pipeline pobierający oficjalne kursy walut z API NBP do PostgreSQL z ładowaniem przyrostowym i harmonogramem.",
+        "proj2.r1": "walut",
+        "proj2.r2": "uruchomień dziennie",
+        "proj2.r3": "testów",
 
         "skills.h": "Czego używam",
         "skills.sub": "mój codzienny warsztat",
@@ -1810,10 +1825,11 @@
         "proj1.r1": "завантажено рядків",
         "proj1.r2": "швидше завантаження",
         "proj1.r3": "від початку до кінця",
-        "proj2.tag": "проєкт 02 · у розробці",
-        "proj2.h": "API → Postgres",
-        "proj2.p": "Новий пайплайн, який отримує дані з публічного REST API та завантажує їх у PostgreSQL. Першому теж потрібна компанія.",
-        "proj2.meta": "незабаром",
+        "proj2.tag": "проєкт 02 · щоденний пайплайн",
+        "proj2.p": "Щоденний пайплайн, який завантажує офіційні курси валют з API NBP у PostgreSQL з інкрементальним завантаженням та планувальником.",
+        "proj2.r1": "валют",
+        "proj2.r2": "запуски на день",
+        "proj2.r3": "тестів",
 
         "skills.h": "Що я використовую",
         "skills.sub": "мій щоденний інструментарій",
